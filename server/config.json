@@ -1,0 +1,9 @@
+{
+    "rds_host": "database-1.ceavkkfbdkvi.us-east-1.rds.amazonaws.com",
+    "rds_port": "3306",
+    "rds_user": "Elenayenyen",
+    "rds_password" : "vomvym-0Didfo-duwpux",
+    "rds_db": "CRIME",
+    "server_host": "127.0.0.1",
+    "server_port":"8080"
+}
