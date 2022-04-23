@@ -105,7 +105,18 @@ async function all_households(req, res) {
 // Route 4 (handler)
 async function all_persons(req, res) {
     // TODO: TASK 5: implement and test, potentially writing your own (ungraded) tests
-    const pagesize = req.query.pagesize ? req.query.pagesize : 10;
+    var Year = req.query.Year? req.query.Year :'';
+    var Age = req.query.Age? req.query.Age :'';
+    var Sex = req.query.Sex? req.query.Sex :'';
+    var Race = req.query.Race? req.query.Race :'';
+    var Hispanic = req.query.Hispanic? req.query.Hispanic :'';
+    var Times_moved_low = req.query.Times_moved_low? req.query.Times_moved_low :'';
+    var Times_moved_high = req.query.Times_moved_high? req.query.Times_moved_high :'';
+    var If_job_sixmonth = req.query.If_job_sixmonth? req.query.If_job_sixmonth :'';
+    var Job_specific = req.query.Job_specific? req.query.Job_specific :'';
+    var Job_type = req.query.Job_type? req.query.Job_type :'';
+    var Num_crime_low = req.query.Num_crime_low? req.query.Num_crime_low :'';
+    var Num_crime_high = req.query.Num_crime_high? req.query.Num_crime_high :'';
     if (req.query.page && !isNaN(parseInt(req.query.page))) {
         connection.query(`select PlayerId, Name, Nationality,OverallRating as Rating,
         Potential,Club,Value
@@ -206,14 +217,17 @@ async function search_persons(req, res) {
     var Job_type = req.query.Job_type? req.query.Job_type :'';
     var Num_crime_low = req.query.Num_crime_low? req.query.Num_crime_low :'';
     var Num_crime_high = req.query.Num_crime_high? req.query.Num_crime_high :'';
-    var page = req.query.page;
+
+    var page = req.query.page ? req.query.page:1;
     var pagesize = req.query.pagesize ? req.query.pagesize:10;
+
+    // console.log('sb')
     
     if (req.query.page && !isNaN(parseInt(req.query.page))) {
         connection.query(`select Pid, Year, Age, Sex, Race, Hispanic,
         Times_moved, If_job_sixmonth, Job_specific, Job_type, Num_crime
         from Person
-        where Year = %${Year}% and Age = %${Age}% and Sex like '%${Sex}%' 
+        where Year = ${Year} and Age = ${Age} and Sex like '%${Sex}%' 
         and Race like '%${Race}%' and Hispanic like '%${Hispanic}%'
         and Times_moved>=${Times_moved_low} and Times_moved <=${Times_moved_high} 
         and If_job_sixmonth like '%${If_job_sixmonth }%'
@@ -221,11 +235,13 @@ async function search_persons(req, res) {
         and Job_type like '%${Job_type}%'
         and Num_crime >= ${Num_crime_low} and Num_crime<=${Num_crime_high}
         order by Year
-        limit ${(parseInt(req.query.page)-1)*pagesize},${pagesize}
+        limit ${(parseInt(page)-1)*pagesize},${pagesize}
         `,function(error, results,fields){
             if(error){
+                console.log(error)
                 res.json({error:error});
             } else if (results){
+                console.log(results)
                 if(results.length ==0){
                     res.json({results:[]});
                 } else {
@@ -237,7 +253,7 @@ async function search_persons(req, res) {
         connection.query(`select Pid, Year, Age, Sex, Race, Hispanic,
         Times_moved, If_job_sixmonth, Job_specific, Job_type, Num_crime
         from Person
-        where Year = %${Year}% and Age = %${Age}% and Sex like '%${Sex}%' 
+        where Year = ${Year} and Age = ${Age} and Sex like '%${Sex}%' 
         and Race like '%${Race}%' and Hispanic like '%${Hispanic}%'
         and Times_moved>=${Times_moved_low} and Times_moved <=${Times_moved_high} 
         and If_job_sixmonth like '%${If_job_sixmonth }%'
@@ -245,11 +261,13 @@ async function search_persons(req, res) {
         and Job_type like '%${Job_type}%'
         and Num_crime >= ${Num_crime_low} and Num_crime<=${Num_crime_high}
         order by Year
-        limit ${(parseInt(req.query.page)-1)*pagesize},${pagesize}
+        limit ${(parseInt(page)-1)*pagesize},${pagesize}
         `,function(error, results,fields){
             if(error){
+                console.log(error)
                 res.json({error:error});
             } else if (results){
+                console.log(results)
                 if(results.length ==0){
                     res.json({results:[]});
                 } else {
