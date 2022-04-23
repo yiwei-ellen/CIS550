@@ -89,51 +89,76 @@ class PersonsPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            nameQuery: '',
-            nationalityQuery: '',
-            clubQuery: '',
-            ratingHighQuery: 100,
-            ratingLowQuery: 0,
-            potHighQuery: 100,
-            potLowQuery: 0,
-            selectedPlayerId: window.location.search ? window.location.search.substring(1).split('=')[1] : 229594,
+            YearQuery: 1900,
+            AgeQuery: 0,
+            SexQuery: '',
+            RaceQuery: '',
+            HispanicQuery: '',
+            Times_moved_lowQuery: 0,
+            Times_moved_highQuery: 100,
+            If_job_sixmonthQuery: '',
+            Job_specificQuery: '',
+            Job_typeQuery: '',
+            Num_crime_lowQuery: 0,
+            Num_crime_highQuery: 100,
             selectedPlayerDetails: null,
             playersResults: []
 
         }
 
         this.updateSearchResults = this.updateSearchResults.bind(this)
-        this.handleNameQueryChange = this.handleNameQueryChange.bind(this)
-        this.handleNationalityQueryChange = this.handleNationalityQueryChange.bind(this)
-        this.handleClubQueryChange = this.handleClubQueryChange.bind(this)
-        this.handleRatingChange = this.handleRatingChange.bind(this)
-        this.handlePotentialChange = this.handlePotentialChange.bind(this)
+        this.handleYearQueryChange = this.handleYearQueryChange.bind(this)
+        this.handleAgeQueryChange = this.handleAgeQueryChange.bind(this)
+        this.handleSexQueryChange = this.handleSexQueryChange.bind(this)
+        this.handleRaceQueryChange = this.handleRaceQueryChange.bind(this)
+        this.handleHispanicQueryChange = this.handleHispanicQueryChange.bind(this)
+        this.handleTimes_movedQueryChange = this.handleTimes_movedQueryChange.bind(this)
+        this.handleIf_job_sixmonthQueryChange = this.handleIf_job_sixmonthQueryChange.bind(this)
+        this.handleJob_specificQueryChange = this.handleJob_specificQueryChange.bind(this)
+        this.handleJob_typeQueryChange = this.handleJob_typeQueryChange.bind(this)
+        this.handleNum_crimeQueryChange = this.handleNum_crimeQueryChange.bind(this)
     }
 
-    
-
-    handleNameQueryChange(event) {
-        this.setState({ nameQuery: event.target.value })
+    handleYearQueryChange(event) {
+        this.setState({ YearQuery: event.target.value })
     }
 
-    handleClubQueryChange(event) {
-        this.setState({ clubQuery: event.target.value })
-        // TASK 20: update state variables appropriately. See handleNameQueryChange(event) for reference
+    handleAgeQueryChange(event) {
+        this.setState({ AgeQuery: event.target.value })
     }
 
-    handleNationalityQueryChange(event) {
-        this.setState({ nationalityQuery: event.target.value })
-        // TASK 21: update state variables appropriately. See handleNameQueryChange(event) for reference
+    handleSexQueryChange(event) {
+        this.setState({ SexQuery: event.target.value })
     }
 
-    handleRatingChange(value) {
-        this.setState({ ratingLowQuery: value[0] })
-        this.setState({ ratingHighQuery: value[1] })
+    handleRaceQueryChange(event) {
+        this.setState({ RaceQuery: event.target.value })
     }
 
-    handlePotentialChange(value) {
-        this.setState({ potLowQuery: value[0] })
-        this.setState({ potHighQuery: value[1] })
+    handleHispanicQueryChange(event) {
+        this.setState({ HispanicQuery: event.target.value })
+    }
+
+    handleTimes_movedQueryChange(value) {
+        this.setState({ Times_moved_lowQuery: value[0] })
+        this.setState({ Times_moved_highQuery: value[1] })
+    }
+
+    handleIf_job_sixmonthQueryChange(event) {
+        this.setState({ If_job_sixmonthQuery: event.target.value })
+    }
+
+    handleJob_specificQueryChange(event) {
+        this.setState({ Job_specificQuery: event.target.value })
+    }
+
+    handleJob_typeQueryChange(event) {
+        this.setState({ Job_typeQuery: event.target.value })
+    }
+
+    handleNum_crimeQueryChange(value) {
+        this.setState({ Num_crime_lowQuery: value[0] })
+        this.setState({ Num_crime_highQuery: value[1] })
         // TASK 22: parse value and update state variables appropriately. See handleRatingChange(value) for reference
     }
 
