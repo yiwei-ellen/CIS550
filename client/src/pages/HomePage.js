@@ -1,7 +1,5 @@
 import React from 'react';
 import {
-  Table,
-  Pagination,
   Select
 } from 'antd'
 
@@ -121,7 +119,7 @@ dataset for this project’s sake.
               />
             <FlexibleXYPlot width={700} height={400} stackBy="y" xDomain={[2003, 2018]} yDomain={[0, 11000]}>
               <XAxis title = "Year"/>
-              <YAxis tickValues={[0,2000, 4000, 6000, 8000, 10000,12000]}/>
+              <YAxis tickValues={[0,2000, 4000, 6000, 8000, 10000,12000]} tickFormat={t => wideFormat(t)}/>
               <HorizontalGridLines />
               <VerticalGridLines />
               <BarSeries data={data_Bar_Female} color="#12939A"/>

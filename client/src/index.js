@@ -25,12 +25,12 @@ ReactDOM.render(
 								<HomePage />
 							)}/>
         <Route exact
-							path="/players"
+							path="/persons"
 							render={() => (
 								<PersonsPage />
 							)}/>
         <Route exact
-							path="/matches"
+							path="/households"
 							render={() => (
 								<HouseholdPage />
 							)}/>
