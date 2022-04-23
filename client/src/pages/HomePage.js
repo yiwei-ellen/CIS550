@@ -68,19 +68,7 @@ class HomePage extends React.Component {
       pagination: null  
     }
 
-  }
 
-
-  componentDidMount() {
-    getAllHouseholds(null, null).then(res => {
-      this.setState({ matchesResults: res.results })
-    })
-
-    getAllPersons().then(res => {
-      console.log(res.results)
-      this.setState({playersResults:res.results})
-      // TASK 1: set the correct state attribute to res.results
-    })
 
  
   }
@@ -115,22 +103,7 @@ dataset for this project’s sake.
         </div>
         <div style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }}>
           <h3>Households</h3>
-          
-          <Table  dataSource={this.state.matchesResults} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 5, showQuickJumper:true }}>
-            <ColumnGroup title="Teams">
-              {/* TASK 4: correct the title for the 'Home' column and add a similar column for 'Away' team in this ColumnGroup */}
-              <Column title="Home" dataIndex="Home" key="Home" sorter= {(a, b) => a.Home.localeCompare(b.Home)}/>
-              <Column title="Away" dataIndex="Away" key="Away" sorter= {(a, b) => a.Away.localeCompare(b.Away)}/>            
-            </ColumnGroup>
-            <ColumnGroup title="Goals">
-              {/* TASK 5: add columns for home and away goals in this ColumnGroup, with the ability to sort values in these columns numerically */}
-              <Column title="HomeGoals" dataIndex="HomeGoals" key="HomeGoals" sorter= {(a, b) => a.HomeGoals.localeCompare(b.HomeGoals)}/>
-              <Column title="AwayGoals" dataIndex="AwayGoals" key="AwayGoals" sorter= {(a, b) => a.AwayGoals.localeCompare(b.AwayGoals)}/>
-            </ColumnGroup>
-            <Column title="Date" dataIndex="Date" key="Date" />
-            <Column title="Time" dataIndex="Time" key="Time" />
-             {/* TASK 6: create two columns (independent - not in a column group) for the date and time. Do not add a sorting functionality */}
-          </Table>
+        
 
         </div>
 
