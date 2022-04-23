@@ -19,16 +19,22 @@ class MenuBar extends React.Component {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink active href="/search/persons">
+              <NavLink active href="/persons">
                 Persons
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink active  href="/search/households" >
+              <NavLink active  href="/households" >
                 Households
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink active  href="/visuals" >
+                Facts and Visuals
+              </NavLink>
+            </NavItem>
           </Nav>
+          
       </Navbar>
         )
     }

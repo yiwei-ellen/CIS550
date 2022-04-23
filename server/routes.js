@@ -104,52 +104,9 @@ async function all_households(req, res) {
 }*/
 
 // Route 4 (handler)
-/*
-async function all_persons(req, res) {
-    // TODO: TASK 5: implement and test, potentially writing your own (ungraded) tests
-    var Year = req.query.Year? req.query.Year :'';
-    var Age = req.query.Age? req.query.Age :'';
-    var Sex = req.query.Sex? req.query.Sex :'';
-    var Race = req.query.Race? req.query.Race :'';
-    var Hispanic = req.query.Hispanic? req.query.Hispanic :'';
-    var Times_moved_low = req.query.Times_moved_low? req.query.Times_moved_low :'';
-    var Times_moved_high = req.query.Times_moved_high? req.query.Times_moved_high :'';
-    var If_job_sixmonth = req.query.If_job_sixmonth? req.query.If_job_sixmonth :'';
-    var Job_specific = req.query.Job_specific? req.query.Job_specific :'';
-    var Job_type = req.query.Job_type? req.query.Job_type :'';
-    var Num_crime_low = req.query.Num_crime_low? req.query.Num_crime_low :'';
-    var Num_crime_high = req.query.Num_crime_high? req.query.Num_crime_high :'';
-    if (req.query.page && !isNaN(parseInt(req.query.page))) {
-        connection.query(`select PlayerId, Name, Nationality,OverallRating as Rating,
-        Potential,Club,Value
-        from Person
-        order by Name
-        limit ${(parseInt(req.query.page)-1)*pagesize},${pagesize}`, function (error, results, fields) {
-            if (error) {
-                console.log(error)
-                res.json({ error: error })
-            } else if (results) {
-                res.json({ results: results })
-            }
-        });
-    } else {
-        // we have implemented this for you to see how to return results by querying the database
-        connection.query(`select PlayerId, Name, Nationality,OverallRating as Rating,
-        Potential,Club,Value
-        from Person
-        order by Name`, function (error, results, fields) {
-            if (error) {
-                console.log(error)
-                res.json({ error: error })
-            } else if (results) {
-                res.json({ results: results })
-            }
-        });
-    }
-    //return res.json({error: "Not implemented"})
-}
 
-*/
+
+
 
 
 // ********************************************
@@ -304,7 +261,7 @@ module.exports = {
     hello,
     test,
     search_households,
-    search_persons
+    search_persons,
 }
 
 
