@@ -194,22 +194,31 @@ async function search_households(req, res) {
 async function search_persons(req, res) {
     // TODO: TASK 9: implement and test, potentially writing your own (ungraded) tests
     // IMPORTANT: in your SQL LIKE matching, use the %query% format to match the search query to substrings, not just the entire string
-    var name = req.query.Name? req.query.Name :'';
-    var nationality = req.query.Nationality ? req.query.Nationality :'' ;
-    var club = req.query.Club ? req.query.Club :'' ;
-    var ratinglow = req.query.RatingLow ? req.query.RatingLow :0;
-    var ratinghigh = req.query.RatingHigh ? req.query.RatingHigh :100 ;
-    var plow = req.query.PotentialLow ? req.query.PotentialLow :0;
-    var phigh = req.query.PotentialHigh ? req.query.PotentialHigh :100 ;
-    var pagesize = req.query.pagesize ? req.query.pagesize:10;
+    var Year = req.query.Year? req.query.Year :'';
+    var Age = req.query.Age? req.query.Age :'';
+    var Sex = req.query.Sex? req.query.Sex :'';
+    var Race = req.query.Race? req.query.Race :'';
+    var Hispanic = req.query.Hispanic? req.query.Hispanic :'';
+    var Times_moved_low = req.query.Times_moved_low? req.query.Times_moved_low :'';
+    var Times_moved_high = req.query.Times_moved_high? req.query.Times_moved_high :'';
+    var If_job_sixmonth = req.query.If_job_sixmonth? req.query.If_job_sixmonth :'';
+    var Job_specific = req.query.Job_specific? req.query.Job_specific :'';
+    var Job_type = req.query.Job_type? req.query.Job_type :'';
+    var Num_crime_low = req.query.Num_crime_low? req.query.Num_crime_low :'';
+    var Num_crime_high = req.query.Num_crime_high? req.query.Num_crime_high :'';
     
     if (req.query.page && !isNaN(parseInt(req.query.page))) {
-        connection.query(`select PlayerId,Name, Nationality, OverallRating as Rating, Potential,Club,Value
-        from Players
-        where Name like '%${name}%' and Nationality like'%${nationality}%' and Club like'%${club}%' 
-        and OverallRating>=${ratinglow} and
-              OverallRating <=${ratinghigh} and Potential >= ${plow} and Potential<=${phigh}
-        order by Name
+        connection.query(`select Pid, Year, Age, Sex, Race, Hispanic,
+        Times_moved, If_job_sixmonth, Job_specific, Job_type, Num_crime
+        from Person
+        where Year = %${Year}% and Age = %${Age}% and Sex like '%${Sex}%' 
+        and Race like '%${Race}%' and Hispanic like '%${Hispanic}%'
+        and Times_moved>=${Times_moved_low} and Times_moved <=${Times_moved_high} 
+        and If_job_sixmonth like '%${If_job_sixmonth }%'
+        and Job_specific like '%${Job_specific}%'
+        and Job_type like '%${Job_type}%'
+        and Num_crime >= ${Num_crime_low} and Num_crime<=${Num_crime_high}
+        order by Year
         limit ${(parseInt(req.query.page)-1)*pagesize},${pagesize}
         `,function(error, results,fields){
             if(error){
@@ -223,12 +232,18 @@ async function search_persons(req, res) {
             }
         });
     } else {
-        connection.query(`select PlayerId,Name, Nationality, OverallRating as Rating, Potential,Club,Value
-        from Players
-        where Name like '%${name}%' and Nationality like '%${nationality}%' and Club like'%${club}%' 
-        and OverallRating>=${ratinglow} and
-              OverallRating <=${ratinghigh} and Potential >= ${plow} and Potential<=${phigh}
-        order by Name
+        connection.query(`select Pid, Year, Age, Sex, Race, Hispanic,
+        Times_moved, If_job_sixmonth, Job_specific, Job_type, Num_crime
+        from Person
+        where Year = %${Year}% and Age = %${Age}% and Sex like '%${Sex}%' 
+        and Race like '%${Race}%' and Hispanic like '%${Hispanic}%'
+        and Times_moved>=${Times_moved_low} and Times_moved <=${Times_moved_high} 
+        and If_job_sixmonth like '%${If_job_sixmonth }%'
+        and Job_specific like '%${Job_specific}%'
+        and Job_type like '%${Job_type}%'
+        and Num_crime >= ${Num_crime_low} and Num_crime<=${Num_crime_high}
+        order by Year
+        limit ${(parseInt(req.query.page)-1)*pagesize},${pagesize}
         `,function(error, results,fields){
             if(error){
                 res.json({error:error});
