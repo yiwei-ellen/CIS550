@@ -35,7 +35,7 @@ ReactDOM.render(
 								<HouseholdPage />
 							)}/>
 		<Route exact
-							path="/visualss"
+							path="/visuals"
 							render={() => (
 								<VisualizationPage />
 							)}/>
