@@ -1,8 +1,8 @@
 import config from './config.json'
 
 //TO DO
-const getAllHouseholds = async (page, pagesize, league) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/households/${league}?page=${page}&pagesize=${pagesize}`, {
+const getAllHouseholds = async (page, pagesize) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/households?page=${page}&pagesize=${pagesize}`, {
         method: 'GET',
     })
     return res.json()

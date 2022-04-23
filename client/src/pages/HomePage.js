@@ -68,25 +68,11 @@ class HomePage extends React.Component {
       pagination: null  
     }
 
-    this.leagueOnChange = this.leagueOnChange.bind(this)
-    this.goToMatch = this.goToMatch.bind(this)
   }
 
-
-  goToMatch(matchId) {
-    window.location = `/matches?id=${matchId}`
-  }
-
-  leagueOnChange(value) {
-    // TASK 2: this value should be used as a parameter to call getAllMatches in fetcher.js with the parameters page and pageSize set to null
-    // then, matchesResults in state should be set to the results returned - see a similar function call in componentDidMount()
-    getAllHouseholds(null, null, value).then(res => {
-      this.setState({ matchesResults: res.results })
-    })
-  }
 
   componentDidMount() {
-    getAllHouseholds(null, null, 'D1').then(res => {
+    getAllHouseholds(null, null).then(res => {
       this.setState({ matchesResults: res.results })
     })
 
@@ -106,26 +92,31 @@ class HomePage extends React.Component {
       <div>
         <MenuBar />
         <div style={{ width: '70vw', margin: '0 auto', marginTop: '5vh' }}>
-          <h3>Players</h3>
+          <h1>Home</h1>
+        </div>
+        <div style={{ width: '70vw', margin: '0 auto', marginTop: '5vh' }}>
+        <p>
+        The NCVS contains personal crime data with details about the crime including time,
+location, victim relationship, various characteristics of the offender, and other reported details
+from the victim. The incident dataset is associated with a household dataset and a person
+dataset, providing more insights about the background of the offender. The NCVS household
+and person datasets are created through interviewing a total of seven times over three years
+and random monthly sampling of households by U.S. Census Bureau. Overall each dataset
+has 400-1200 columns, we are picking out the important and interesting variables in each
+dataset for this project’s sake.
+        </p>
+        <img src="../img.png" ></img>
+        </div>
+        
+       
+        <div style={{ width: '70vw', margin: '0 auto', marginTop: '5vh' }}>
+          <h3>Persons</h3>
           <Table dataSource={this.state.playersResults} columns={playerColumns} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 5, showQuickJumper:true }}/>
         </div>
         <div style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }}>
-          <h3>Matches</h3>
-          <Select defaultValue="D1" style={{ width: 120 }} onChange={this.leagueOnChange}>
-            <Option value="D1">Bundesliga</Option>
-            <Option value="SP1">La Liga</Option>
-            <Option value="F1">Ligue 1</Option>
-            <Option value="I1">Serie A</Option>
-            <Option value="E0">Premier League</Option>
-             {/* TASK 3: Take a look at Dataset Information.md from MS1 and add other options to the selector here  */}
-
-          </Select>
+          <h3>Households</h3>
           
-          <Table onRow={(record, rowIndex) => {
-    return {
-      onClick: event => {this.goToMatch(record.MatchId)}, // clicking a row takes the user to a detailed view of the match in the /matches page using the MatchId parameter  
-    };
-  }} dataSource={this.state.matchesResults} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 5, showQuickJumper:true }}>
+          <Table  dataSource={this.state.matchesResults} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 5, showQuickJumper:true }}>
             <ColumnGroup title="Teams">
               {/* TASK 4: correct the title for the 'Home' column and add a similar column for 'Away' team in this ColumnGroup */}
               <Column title="Home" dataIndex="Home" key="Home" sorter= {(a, b) => a.Home.localeCompare(b.Home)}/>
