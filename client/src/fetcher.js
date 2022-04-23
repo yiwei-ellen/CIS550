@@ -7,7 +7,7 @@ const getAllHouseholds = async (page, pagesize, league) => {
     })
     return res.json()
 }
-//TO DO 
+/*
 const getAllPersons = async (page, pagesize) => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/persons?page=${page}&pagesize=${pagesize}`, {
         method: 'GET',
@@ -20,14 +20,14 @@ const getMatch = async (id) => {
         method: 'GET',
     })
     return res.json()
-}
+}*/
 
 const getPlayer = async (id) => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/player?id=${id}`, {
         method: 'GET',
     })
     return res.json()
-}*/
+}
 
 //TO DO
 const getHouseholdSearch = async (home, away, page, pagesize) => {
@@ -61,8 +61,6 @@ const getPersonsSearch = async (Year, Age, Sex, Race, Hispanic, Times_moved_low,
 
 export {
     getAllHouseholds,
-    getAllPersons,
-
     getHouseholdSearch,
     getPersonsSearch
 }

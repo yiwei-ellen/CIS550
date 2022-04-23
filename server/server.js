@@ -21,7 +21,7 @@ app.get('/test', routes.test)
 app.get('/households', routes.all_households)
 
 // Route 4 - register as GET 
-app.get('/persons', routes.all_persons)
+// app.get('/persons', routes.all_persons)
 
 // Route 5 - register as GET 
 //app.get('/match', routes.match)

@@ -6,7 +6,7 @@ import {
 } from 'antd'
 
 import MenuBar from '../components/MenuBar';
-import { getAllHouseholds, getAllPersons } from '../fetcher'
+// import { getAllHouseholds, getAllPersons } from '../fetcher'
 const { Column, ColumnGroup } = Table;
 const { Option } = Select;
 
@@ -68,7 +68,7 @@ class HomePage extends React.Component {
       pagination: null  
     }
 
-    this.leagueOnChange = this.leagueOnChange.bind(this)
+    // this.leagueOnChange = this.leagueOnChange.bind(this)
     this.goToMatch = this.goToMatch.bind(this)
   }
 
@@ -77,15 +77,18 @@ class HomePage extends React.Component {
     window.location = `/matches?id=${matchId}`
   }
 
+  /*
   leagueOnChange(value) {
     // TASK 2: this value should be used as a parameter to call getAllMatches in fetcher.js with the parameters page and pageSize set to null
     // then, matchesResults in state should be set to the results returned - see a similar function call in componentDidMount()
     getAllHouseholds(null, null, value).then(res => {
       this.setState({ matchesResults: res.results })
     })
-  }
-
+  } */
+  
   componentDidMount() {
+
+    /*
     getAllHouseholds(null, null, 'D1').then(res => {
       this.setState({ matchesResults: res.results })
     })
@@ -95,6 +98,7 @@ class HomePage extends React.Component {
       this.setState({playersResults:res.results})
       // TASK 1: set the correct state attribute to res.results
     })
+    */
 
  
   }
