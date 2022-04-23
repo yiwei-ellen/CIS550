@@ -62,6 +62,7 @@ async function test(req, res) {
 
 
 // Route 3 (handler)
+/*
 async function all_households(req, res) {
     // TODO: TASK 4: implement and test, potentially writing your own (ungraded) tests
     // We have partially implemented this function for you to 
@@ -100,9 +101,10 @@ async function all_households(req, res) {
             }
         });
     }
-}
+}*/
 
 // Route 4 (handler)
+/*
 async function all_persons(req, res) {
     // TODO: TASK 5: implement and test, potentially writing your own (ungraded) tests
     var Year = req.query.Year? req.query.Year :'';
@@ -147,7 +149,7 @@ async function all_persons(req, res) {
     //return res.json({error: "Not implemented"})
 }
 
-
+*/
 
 
 // ********************************************
@@ -281,8 +283,6 @@ async function search_persons(req, res) {
 module.exports = {
     hello,
     test,
-    all_persons,
-    all_households,
     search_households,
     search_persons
 }

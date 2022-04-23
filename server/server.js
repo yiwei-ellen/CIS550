@@ -18,7 +18,7 @@ app.get('/hello', routes.hello)
 app.get('/test', routes.test)
 
 // Route 3 - register as GET 
-app.get('/households', routes.all_households)
+//app.get('/households', routes.all_households)
 
 // Route 4 - register as GET 
 // app.get('/persons', routes.all_persons)
