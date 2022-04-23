@@ -189,14 +189,17 @@ class PersonsPage extends React.Component {
                 <Form style={{ width: '80vw', margin: '0 auto', marginTop: '5vh' }}>
                     <Row>
                         <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
-                            <label>Name</label>
-                            <FormInput placeholder="Name" value={this.state.nameQuery} onChange={this.handleNameQueryChange} />
+                            <label>Year</label>
+                            <FormInput placeholder="Year" value={this.state.YearQuery} onChange={this.handleYearQueryChange} />
                         </FormGroup></Col>
                         <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
-                            <label>Nationality</label>
-                            <FormInput placeholder="Nationality" value={this.state.nationalityQuery} onChange={this.handleNationalityQueryChange} />
+                            <label>Age</label>
+                            <FormInput placeholder="Age" value={this.state.AgeQuery} onChange={this.handleAgeQueryChange} />
                         </FormGroup></Col>
-                        {/* TASK 26: Create a column for Club, using the elements and style we followed in the above two columns. Use the onChange method (handleClubQueryChange)  */}
+                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
+                            <label>Sex</label>
+                            <FormInput placeholder="Sex" value={this.state.SexQuery} onChange={this.handleSexQueryChange} />
+                        </FormGroup></Col>
 
                     </Row>
                     <br></br>

@@ -10,7 +10,7 @@ import {
 class MenuBar extends React.Component {
     render() {
         return(
-            <Navbar type="light" theme="primary" expand="md" style="background-color: #e3f2fd;">
+            <Navbar type="light" theme="primary" expand="md">
         <NavbarBrand href="/">National Crime Victimization Survey</NavbarBrand>
           <Nav navbar>
           <NavItem>
