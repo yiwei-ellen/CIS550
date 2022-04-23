@@ -10,8 +10,8 @@ import {
 class MenuBar extends React.Component {
     render() {
         return(
-            <Navbar type="dark" theme="primary" expand="md">
-        <NavbarBrand href="/">CIS 550 FIFA</NavbarBrand>
+            <Navbar type="light" theme="primary" expand="md" style="background-color: #e3f2fd;">
+        <NavbarBrand href="/">National Crime Victimization Survey</NavbarBrand>
           <Nav navbar>
           <NavItem>
               <NavLink active href="/">
@@ -19,13 +19,13 @@ class MenuBar extends React.Component {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink active href="/players">
-                Players
+              <NavLink active href="/persons">
+                Persons
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink active  href="/matches" >
-                Matches
+              <NavLink active  href="/households" >
+                Persons
               </NavLink>
             </NavItem>
           </Nav>
