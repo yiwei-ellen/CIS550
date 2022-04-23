@@ -20,44 +20,66 @@ import MenuBar from '../components/MenuBar';
 import { getPersonsSearch } from '../fetcher'
 const wideFormat = format('.3r');
 
-const playerColumns = [
+const personColumns = [
     {
-        title: 'Name',
-        dataIndex: 'Name',
-        key: 'Name',
-        sorter: (a, b) => a.Name.localeCompare(b.Name),
-        render: (text, row) => <a href={`/players?id=${row.PlayerId}`}>{text}</a>
+        title: 'Year',
+        dataIndex: 'Year',
+        key: 'Year',
+        sorter: (a, b) => a.Year.localeCompare(b.Year)
     },
     {
-        title: 'Nationality',
-        dataIndex: 'Nationality',
-        key: 'Nationality',
-        sorter: (a, b) => a.Nationality.localeCompare(b.Nationality)
+        title: 'Age',
+        dataIndex: 'Age',
+        key: 'Age',
+        sorter: (a, b) => a.Age.localeCompare(b.Age)
     },
     {
-        title: 'Rating',
-        dataIndex: 'Rating',
-        key: 'Rating',
-        sorter: (a, b) => a.Rating - b.Rating
-
+        title: 'Sex',
+        dataIndex: 'Sex',
+        key: 'Sex',
+        sorter: (a, b) => a.Sex.localeCompare(b.Sex)
     },
     {
-        title: 'Potential',
-        dataIndex: 'Potential',
-        key: 'Potential',
-        sorter: (a, b) => a.Potential - b.Potential
-        
+        title: 'Race',
+        dataIndex: 'Race',
+        key: 'Race',
+        sorter: (a, b) => a.Race.localeCompare(b.Race)
     },
     {
-        title: 'Club',
-        dataIndex: 'Club',
-        key: 'Club',
-        sorter: (a, b) => a.Club.localeCompare(b.Club)
+        title: 'Hispanic',
+        dataIndex: 'Hispanic',
+        key: 'Hispanic',
+        sorter: (a, b) => a.Hispanic.localeCompare(b.Hispanic)
     },
     {
-        title: 'Value',
-        dataIndex: 'Value',
-        key: 'Value'
+        title: 'Times_moved',
+        dataIndex: 'Times_moved',
+        key: 'Times_moved',
+        sorter: (a, b) => a.Times_moved - b.Times_moved
+    },
+    {
+        title: 'If_job_sixmonth',
+        dataIndex: 'If_job_sixmonth',
+        key: 'If_job_sixmonth',
+        sorter: (a, b) => a.If_job_sixmonth.localeCompare(b.If_job_sixmonth)
+    },
+    {
+        title: 'Job_specific',
+        dataIndex: 'Job_specific',
+        key: 'Job_specific',
+        sorter: (a, b) => a.Job_specific.localeCompare(b.Job_specific)
+    },
+    {
+        title: 'Job_type',
+        dataIndex: 'Job_type',
+        key: 'Job_type',
+        sorter: (a, b) => a.Job_type.localeCompare(b.Job_type)
+    },
+    {
+        title: 'Num_crime',
+        dataIndex: 'Num_crime',
+        key: 'Num_crime',
+        sorter: (a, b) => a.Num_crime.localeCompare(b.Num_crime)
     },
     // TASK 19: copy over your answers for tasks 7 - 9 to add columns for potential, club, and value
 ];
@@ -175,7 +197,7 @@ class PlayersPage extends React.Component {
                 </Form>
                 <Divider />
                 {/* TASK 24: Copy in the players table from the Home page, but use the following style tag: style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }} - this should be one line of code! */
-                <Table dataSource={this.state.playersResults} columns={playerColumns} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 5, showQuickJumper:true }} style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }}/>}
+                <Table dataSource={this.state.playersResults} columns={personColumns} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 5, showQuickJumper:true }} style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }}/>}
 
                 <Divider />
 
