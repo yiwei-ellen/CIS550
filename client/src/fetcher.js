@@ -34,8 +34,17 @@ const getPersonsSearch = async (Year, Age, Sex, Race, Hispanic, Times_moved_low,
 }
 
 
+const getVisualization1 = async () => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/visualization1`, {
+        method: 'GET',
+    })
+    return res.json()
+}
+
+
 export {
     getAllHouseholds,
     getHouseholdSearch,
-    getPersonsSearch
+    getPersonsSearch,
+    getVisualization1
 }

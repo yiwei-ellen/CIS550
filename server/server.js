@@ -35,6 +35,8 @@ app.get('/search/households', routes.search_households)
 // Route 8 - register as GET 
 app.get('/search/persons', routes.search_persons)
 
+app.get('/visualization1', routes.weaponVisualization)
+
 
 
 

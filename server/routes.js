@@ -280,6 +280,38 @@ async function search_persons(req, res) {
     }
 }
 
+    // Route 9 (handler)
+async function weaponVisualization(req, res) {
+    // TODO: TASK 9: implement and test, potentially writing your own (ungraded) tests
+    // IMPORTANT: in your SQL LIKE matching, use the %query% format to match the search query to substrings, not just the entire string
+    
+    connection.query(`WITH VictimHouse AS (
+        SELECT Hid, Victim_id AS Pid, If_weapon AS weapon_involved
+        FROM Incident
+    )
+    SELECT h.Income AS Income_bracket,
+           COUNT(CASE WHEN v.weapon_involved = 1 THEN 1 END) / COUNT(*) AS Weapon_involved,
+           COUNT(CASE WHEN v.weapon_involved = 2 THEN 1 END) / COUNT(*) AS No_weapon_involved,
+           COUNT(CASE WHEN v.weapon_involved = 3 THEN 1 END) / COUNT(*) AS Do_not_know,
+           COUNT(CASE WHEN v.weapon_involved > 3 THEN 1 END) / COUNT(*) AS Others
+    FROM Household h JOIN VictimHouse v ON h.Hid = v.Hid
+    GROUP BY h.Income
+    ORDER BY h.Income ASC;
+    `,function(error, results,fields){
+        if(error){
+            console.log(error)
+            res.json({error:error});
+        } else if (results){
+            console.log(results)
+            if(results.length ==0){
+                res.json({results:[]});
+            } else {
+                res.json({results:results});
+            }    
+        }
+    });
+}
+
 module.exports = {
     hello,
     test,
