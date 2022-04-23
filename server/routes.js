@@ -160,18 +160,32 @@ async function all_persons(req, res) {
 async function search_households(req, res) {
     // TODO: TASK 8: implement and test, potentially writing your own (ungraded) tests
     // IMPORTANT: in your SQL LIKE matching, use the %query% format to match the search query to substrings, not just the entire string
-    var home = req.query.Home? req.query.Home :'';
-    var away = req.query.Away ? req.query.Away :'' ;
+    var Year = req.query.Year? req.query.Year :'';
+    var Land_use_OG = req.query.Land_use_OG? req.query.Land_use_OG :'';
+    var Land_use_2015 = req.query.Land_use_2015? req.query.Land_use_2015 :'';
+    var Living_quarter_OG = req.query.Living_quarter_OG? req.query.Living_quarter_OG :'';
+    var Living_quarter_2016 = req.query.Living_quarter_2016? req.query.Living_quarter_2016 :'';
+    var Income = req.query.Income? req.query.Income :'';
+    var Income_2015 = req.query.Income_2015? req.query.Income_2015 :'';
+    var Num_crime_reported_low = req.query.Num_crime_reported_low? req.query.Num_crime_reported_low :'';
+    var Num_crime_reported_high = req.query.Num_crime_reported_high? req.query.Num_crime_reported_high :'';
+    var Head_race = req.query.Head_race? req.query.Head_race :'';
+    var Head_hispanic = req.query.Head_hispanic? req.query.Head_hispanic :'';
     var page = req.query.page;
     var pagesize = req.query.pagesize ? req.query.pagesize:10;
     
     if (req.query.page && !isNaN(parseInt(req.query.page))) {
-        connection.query(`select MatchId,Date,Time, HomeTeam as Home,AwayTeam as Away, FullTimeGoalsH as HomeGoals,
-        FullTimeGoalsA as AwayGoals
-        from Matches
-        where HomeTeam like '%${home}%' and AwayTeam like '%${away}%'
-        order by HomeTeam,AwayTeam
-        limit ${(parseInt(req.query.page)-1)*pagesize},${pagesize}
+        connection.query(`select Hid, YEAR, Land_use_OG, Land_use_2015,
+        Living_quarter_OG, Living_quarter_2016, Income, Income_2015,
+        Num_crime_reported_low, Num_crime_reported_high, Head_race, Head_hispanic
+        from Household
+        where YEAR = ${Year} and Land_use_OG = LIKE '%${Land_use_OG}%' and Land_use_2015 = LIKE '%${Land_use_2015}%'
+        and Living_quarter_OG = LIKE '%${Living_quarter_OG}%' and Living_quarter_2016 = LIKE '%${Living_quarter_2016}%'
+        and Income = LIKE '%${Income}%' and Income_2015 = LIKE '%${Income_2015}%'
+        and Num_crime_reported_low >= ${Num_crime_reported_low} and Num_crime_reported_low <=${Num_crime_reported_high}
+        and Head_race= LIKE '%${Head_race}%' and Head_hispanic = LIKE '%${Head_hispanic}%'
+        order by Hid
+        limit ${(parseInt(page)-1)*pagesize},${pagesize}
         `,function(error, results,fields){
             if(error){
                 res.json({error:error});
@@ -184,11 +198,17 @@ async function search_households(req, res) {
             }
         });
     } else {
-        connection.query(`select MatchId,Date,Time, HomeTeam as Home,AwayTeam as Away, FullTimeGoalsH as HomeGoals,
-        FullTimeGoalsA as AwayGoals
-        from Matches
-        where HomeTeam like '%${home}%' and AwayTeam like '%${away}%'
-        order by HomeTeam,AwayTeam
+        connection.query(`select Hid, YEAR, Land_use_OG, Land_use_2015,
+        Living_quarter_OG, Living_quarter_2016, Income, Income_2015,
+        Num_crime_reported_low, Num_crime_reported_high, Head_race, Head_hispanic
+        from Household
+        where YEAR = ${Year} and Land_use_OG = LIKE '%${Land_use_OG}%' and Land_use_2015 = LIKE '%${Land_use_2015}%'
+        and Living_quarter_OG = LIKE '%${Living_quarter_OG}%' and Living_quarter_2016 = LIKE '%${Living_quarter_2016}%'
+        and Income = LIKE '%${Income}%' and Income_2015 = LIKE '%${Income_2015}%'
+        and Num_crime_reported_low >= ${Num_crime_reported_low} and Num_crime_reported_low <=${Num_crime_reported_high}
+        and Head_race= LIKE '%${Head_race}%' and Head_hispanic = LIKE '%${Head_hispanic}%'
+        order by Hid
+        limit ${(parseInt(page)-1)*pagesize},${pagesize}
         `,function(error, results,fields){
             if(error){
                 res.json({error:error});
