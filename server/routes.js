@@ -109,7 +109,7 @@ async function all_persons(req, res) {
     if (req.query.page && !isNaN(parseInt(req.query.page))) {
         connection.query(`select PlayerId, Name, Nationality,OverallRating as Rating,
         Potential,Club,Value
-        from Players
+        from Person
         order by Name
         limit ${(parseInt(req.query.page)-1)*pagesize},${pagesize}`, function (error, results, fields) {
             if (error) {
@@ -123,7 +123,7 @@ async function all_persons(req, res) {
         // we have implemented this for you to see how to return results by querying the database
         connection.query(`select PlayerId, Name, Nationality,OverallRating as Rating,
         Potential,Club,Value
-        from Players
+        from Person
         order by Name`, function (error, results, fields) {
             if (error) {
                 console.log(error)
@@ -206,6 +206,8 @@ async function search_persons(req, res) {
     var Job_type = req.query.Job_type? req.query.Job_type :'';
     var Num_crime_low = req.query.Num_crime_low? req.query.Num_crime_low :'';
     var Num_crime_high = req.query.Num_crime_high? req.query.Num_crime_high :'';
+    var page = req.query.page;
+    var pagesize = req.query.pagesize ? req.query.pagesize:10;
     
     if (req.query.page && !isNaN(parseInt(req.query.page))) {
         connection.query(`select Pid, Year, Age, Sex, Race, Hispanic,
@@ -261,8 +263,8 @@ async function search_persons(req, res) {
 module.exports = {
     hello,
     test,
-    all_households,
     all_persons,
+    all_households,
     search_households,
     search_persons
 }

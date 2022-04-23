@@ -47,7 +47,6 @@ const getPersonsSearch = async (Year, Age, Sex, Race, Hispanic, Times_moved_low,
 
 export {
     getAllHouseholds,
-    getAllPersons,
     getHouseholdSearch,
     getPersonsSearch
 }
