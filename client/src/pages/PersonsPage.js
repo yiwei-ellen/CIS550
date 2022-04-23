@@ -91,8 +91,8 @@ class PersonsPage extends React.Component {
         this.state = {
             YearQuery: 1900,
             AgeQuery: 0,
-            SexQuery: '',
-            RaceQuery: '',
+            SexQuery: 'Male',
+            RaceQuery: 'White',
             HispanicQuery: '',
             Times_moved_lowQuery: 0,
             Times_moved_highQuery: 100,
