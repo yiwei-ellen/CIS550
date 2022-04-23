@@ -89,16 +89,16 @@ class PersonsPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            YearQuery: 1900,
-            AgeQuery: 0,
-            SexQuery: 'Male',
-            RaceQuery: 'White',
-            HispanicQuery: 'Yes',
+            YearQuery: 2015,
+            AgeQuery: 40,
+            SexQuery: '',
+            RaceQuery: '',
+            HispanicQuery: '',
             Times_moved_lowQuery: 0,
             Times_moved_highQuery: 40,
-            If_job_sixmonthQuery: 'Yes',
-            Job_specificQuery: 'Elementary',
-            Job_typeQuery: 'A private company, business, or individual for wages',
+            If_job_sixmonthQuery: '',
+            Job_specificQuery: '',
+            Job_typeQuery: '',
             Num_crime_lowQuery: 0,
             Num_crime_highQuery: 40,
             selectedPlayerDetails: null,
@@ -168,7 +168,7 @@ class PersonsPage extends React.Component {
         getPersonsSearch(this.state.YearQuery, this.state.AgeQuery, this.state.SexQuery, this.state.RaceQuery, this.state.HispanicQuery, 
             this.state.Times_moved_lowQuery, this.state.Times_moved_highQuery, this.state.If_job_sixmonthQuery, 
             this.state.Job_specificQuery, this.state.Job_typeQuery, this.state.Num_crime_lowQuery, 
-            this.state.Num_crime_highQuery, null, null).then(res => {
+            this.state.Num_crime_highQuery, 1, 10).then(res => {
             this.setState({ personsResults: res.results })
         })
         //TASK 23: call getPlayerSearch and update playerResults in state. See componentDidMount() for a hint
@@ -179,7 +179,7 @@ class PersonsPage extends React.Component {
         getPersonsSearch(this.state.YearQuery, this.state.AgeQuery, this.state.SexQuery, this.state.RaceQuery, this.state.HispanicQuery, 
             this.state.Times_moved_lowQuery, this.state.Times_moved_highQuery, this.state.If_job_sixmonthQuery, 
             this.state.Job_specificQuery, this.state.Job_typeQuery, this.state.Num_crime_lowQuery, 
-            this.state.Num_crime_highQuery, null, null).then(res => {
+            this.state.Num_crime_highQuery, 1, 10).then(res => {
             this.setState({ personsResults: res.results })
         })
 
