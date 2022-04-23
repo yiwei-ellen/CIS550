@@ -85,7 +85,7 @@ const personColumns = [
 ];
 
 
-class PlayersPage extends React.Component {
+class PersonPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
