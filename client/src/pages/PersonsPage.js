@@ -176,6 +176,7 @@ class PersonsPage extends React.Component {
     }
 
     componentDidMount() {
+
         getPersonsSearch(this.state.YearQuery, this.state.AgeQuery, this.state.SexQuery, this.state.RaceQuery, this.state.HispanicQuery, 
             this.state.Times_moved_lowQuery, this.state.Times_moved_highQuery, this.state.If_job_sixmonthQuery, 
             this.state.Job_specificQuery, this.state.Job_typeQuery, this.state.Num_crime_lowQuery, 

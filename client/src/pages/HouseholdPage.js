@@ -172,6 +172,8 @@ class HouseholdPage extends React.Component {
     }
 
     componentDidMount() {
+
+
         getHouseholdSearch(this.state.YearQuery, this.state.Land_use_OGQuery, this.state.Land_use_2015Query,
             this.state.Living_quarter_OGQuery, this.Living_quarter_2016Query, this.state.IncomeQuery,
             this.state.Income_2015Query, this.state.Num_crime_reported_lowQuery, this.state.Num_crime_reported_highQuery,
@@ -179,7 +181,7 @@ class HouseholdPage extends React.Component {
             1, 10).then(res => {
             this.setState({ householdResults: res.results })
         })
-
+        console.log(this.state.householdResults)
 
         
     }
@@ -263,7 +265,7 @@ class HouseholdPage extends React.Component {
                         <CardBody>
                         <Row gutter='30' align='middle' justify='left'>
                             <Col>
-                            <h5>{this.state.selectedHouseholdDetails.Year}</h5>
+                            <h5>{this.state.selectedHouseholdDetails.Yearx}</h5>
                             </Col>
                             <Col>
                             <h5>{this.state.selectedHouseholdDetails.Land_use_OG}</h5>

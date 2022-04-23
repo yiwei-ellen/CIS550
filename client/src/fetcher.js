@@ -1,6 +1,7 @@
 import config from './config.json'
 
 //TO DO
+/*
 const getAllHouseholds = async (page, pagesize) => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/households?page=${page}&pagesize=${pagesize}`, {
         method: 'GET',
@@ -13,7 +14,7 @@ const getAllPersons = async (page, pagesize) => {
         method: 'GET',
     })
     return res.json()
-}
+} */
 
 //TO DO
 const getHouseholdSearch = async (Year, Land_use_OG, Land_use_2015, Living_quarter_OG, Living_quarter_2016,
@@ -50,7 +51,7 @@ const getVisualization1 = async () => {
 
 
 export {
-    getAllHouseholds,
+    // getAllHouseholds,
     getHouseholdSearch,
     getPersonsSearch,
     getVisualization1

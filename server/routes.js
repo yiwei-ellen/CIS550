@@ -137,7 +137,7 @@ async function search_households(req, res) {
         Num_crime_reported, Head_race, Head_hispanic
         from Household
         where YEAR = ${Year} and Land_use_OG LIKE '%${Land_use_OG}%' and Land_use_2015 LIKE '%${Land_use_2015}%'
-        and Living_quarter_OG LIKE '%${Living_quarter_OG}%' and Living_quarter_2016 LIKE '%${Living_quarter_2016}%'
+        and Living_quarter_OG LIKE '%${Living_quarter_OG}%' and Living_quarter_2016 LIKE '%%'
         and Income LIKE '%${Income}%' and Income_2015 LIKE '%${Income_2015}%'
         and Num_crime_reported >= ${Num_crime_reported_low} and Num_crime_reported <=${Num_crime_reported_high}
         and Head_race LIKE '%${Head_race}%' and Head_hispanic LIKE '%${Head_hispanic}%'
@@ -160,10 +160,10 @@ async function search_households(req, res) {
         Num_crime_reported, Head_race, Head_hispanic
         from Household
         where YEAR = ${Year} and Land_use_OG LIKE '%${Land_use_OG}%' and Land_use_2015 LIKE '%${Land_use_2015}%'
-        and Living_quarter_OG LIKE '%${Living_quarter_OG}%' and Living_quarter_2016 LIKE '%${Living_quarter_2016}%'
+        and Living_quarter_OG LIKE '%${Living_quarter_OG}%' and Living_quarter_2016 LIKE '%%'
         and Income LIKE '%${Income}%' and Income_2015 LIKE '%${Income_2015}%'
         and Num_crime_reported >= ${Num_crime_reported_low} and Num_crime_reported <=${Num_crime_reported_high}
-        and Head_race LIKE '%${Head_race}%' and Head_hispanic LIKE '%${Head_hispanic}%'
+        and Head_race LIKE '%${Head_race}%' and Head_hispanic LIKE '%%'
         order by Hid
         limit ${(parseInt(page)-1)*pagesize},${pagesize}
         `,function(error, results,fields){
@@ -296,6 +296,7 @@ module.exports = {
     test,
     search_households,
     search_persons,
+    weaponVisualization
 }
 
 
