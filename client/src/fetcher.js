@@ -37,8 +37,11 @@ const getHouseholdSearch = async (home, away, page, pagesize) => {
     return res.json()
 }
 
-const getPersonsSearch = async (name, nationality, club, rating_high, rating_low, pot_high, pot_low, page, pagesize) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/search/players?Name=${name}&Nationality=${nationality}&Club=${club}&RatingLow=${rating_low}&RatingHigh=${rating_high}&PotentialHigh=${pot_high}&PotentialLow=${pot_low}&page=${page}&pagesize=${pagesize}`, {
+const getPersonsSearch = async (Year, Age, Sex, Race, Hispanic, Times_moved_low, Times_moved_high, If_job_sixmonth, Job_specific, Job_type, Num_crime_low, Num_crime_high, page, pagesize) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/search/persons?Year=${Year}`+
+    `&Age=${Age}&Sex=${Sex}&Race=${Race}&Hispanic=${Hispanic}&Times_moved_low=${Times_moved_low}&Times_moved_high=${Times_moved_high}`+
+    `&If_job_sixmonth=${If_job_sixmonth}&Job_specific=${Job_specific}&Job_type=${Job_type}`+
+    `&Num_crime_low=${Num_crime_low}&Num_crime_high=${Num_crime_high}&page=${page}&pagesize=${pagesize}`, {
         method: 'GET',
     })
     return res.json()
