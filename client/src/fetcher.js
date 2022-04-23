@@ -16,8 +16,15 @@ const getAllPersons = async (page, pagesize) => {
 }
 
 //TO DO
-const getHouseholdSearch = async (home, away, page, pagesize) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/search/matches?Home=${home}&Away=${away}&page=${page}&pagesize=${pagesize}`, {
+const getHouseholdSearch = async (Year, Land_use_OG, Land_use_2015, Living_quarter_OG, Living_quarter_2016,
+    Income, Income_2015, Num_crime_reported_low, Num_crime_reported_high, Head_race, Head_hispanic, page, pagesize) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/search/Households?Year=${Year}`+
+    `&Land_use_OG=${Land_use_OG}&Land_use_2015=${Land_use_2015}`+
+    `&Living_quarter_OG=${Living_quarter_OG}&Living_quarter_2016=${Living_quarter_2016}`+
+    `&Income=${Income}&Income_2015=${Income_2015}`+
+    `&Num_crime_reported_low=${Num_crime_reported_low}&Num_crime_reported_high=${Num_crime_reported_high}`+
+    `&Head_race=${Head_race}&Head_hispanic=${Head_hispanic}`+
+    `page=${page}&pagesize=${pagesize}`, {
         method: 'GET',
     })
     return res.json()

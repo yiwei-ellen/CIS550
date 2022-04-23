@@ -104,52 +104,9 @@ async function all_households(req, res) {
 }*/
 
 // Route 4 (handler)
-/*
-async function all_persons(req, res) {
-    // TODO: TASK 5: implement and test, potentially writing your own (ungraded) tests
-    var Year = req.query.Year? req.query.Year :'';
-    var Age = req.query.Age? req.query.Age :'';
-    var Sex = req.query.Sex? req.query.Sex :'';
-    var Race = req.query.Race? req.query.Race :'';
-    var Hispanic = req.query.Hispanic? req.query.Hispanic :'';
-    var Times_moved_low = req.query.Times_moved_low? req.query.Times_moved_low :'';
-    var Times_moved_high = req.query.Times_moved_high? req.query.Times_moved_high :'';
-    var If_job_sixmonth = req.query.If_job_sixmonth? req.query.If_job_sixmonth :'';
-    var Job_specific = req.query.Job_specific? req.query.Job_specific :'';
-    var Job_type = req.query.Job_type? req.query.Job_type :'';
-    var Num_crime_low = req.query.Num_crime_low? req.query.Num_crime_low :'';
-    var Num_crime_high = req.query.Num_crime_high? req.query.Num_crime_high :'';
-    if (req.query.page && !isNaN(parseInt(req.query.page))) {
-        connection.query(`select PlayerId, Name, Nationality,OverallRating as Rating,
-        Potential,Club,Value
-        from Person
-        order by Name
-        limit ${(parseInt(req.query.page)-1)*pagesize},${pagesize}`, function (error, results, fields) {
-            if (error) {
-                console.log(error)
-                res.json({ error: error })
-            } else if (results) {
-                res.json({ results: results })
-            }
-        });
-    } else {
-        // we have implemented this for you to see how to return results by querying the database
-        connection.query(`select PlayerId, Name, Nationality,OverallRating as Rating,
-        Potential,Club,Value
-        from Person
-        order by Name`, function (error, results, fields) {
-            if (error) {
-                console.log(error)
-                res.json({ error: error })
-            } else if (results) {
-                res.json({ results: results })
-            }
-        });
-    }
-    //return res.json({error: "Not implemented"})
-}
 
-*/
+
+
 
 
 // ********************************************
@@ -160,18 +117,32 @@ async function all_persons(req, res) {
 async function search_households(req, res) {
     // TODO: TASK 8: implement and test, potentially writing your own (ungraded) tests
     // IMPORTANT: in your SQL LIKE matching, use the %query% format to match the search query to substrings, not just the entire string
-    var home = req.query.Home? req.query.Home :'';
-    var away = req.query.Away ? req.query.Away :'' ;
-    var page = req.query.page;
+    var Year = req.query.Year? req.query.Year :'';
+    var Land_use_OG = req.query.Land_use_OG? req.query.Land_use_OG :'';
+    var Land_use_2015 = req.query.Land_use_2015? req.query.Land_use_2015 :'';
+    var Living_quarter_OG = req.query.Living_quarter_OG? req.query.Living_quarter_OG :'';
+    var Living_quarter_2016 = req.query.Living_quarter_2016? req.query.Living_quarter_2016 :'';
+    var Income = req.query.Income? req.query.Income :'';
+    var Income_2015 = req.query.Income_2015? req.query.Income_2015 :'';
+    var Num_crime_reported_low = req.query.Num_crime_reported_low? req.query.Num_crime_reported_low :'';
+    var Num_crime_reported_high = req.query.Num_crime_reported_high? req.query.Num_crime_reported_high :'';
+    var Head_race = req.query.Head_race? req.query.Head_race :'';
+    var Head_hispanic = req.query.Head_hispanic? req.query.Head_hispanic :'';
+    var page = req.query.page? req.query.pagesize:1;
     var pagesize = req.query.pagesize ? req.query.pagesize:10;
     
     if (req.query.page && !isNaN(parseInt(req.query.page))) {
-        connection.query(`select MatchId,Date,Time, HomeTeam as Home,AwayTeam as Away, FullTimeGoalsH as HomeGoals,
-        FullTimeGoalsA as AwayGoals
-        from Matches
-        where HomeTeam like '%${home}%' and AwayTeam like '%${away}%'
-        order by HomeTeam,AwayTeam
-        limit ${(parseInt(req.query.page)-1)*pagesize},${pagesize}
+        connection.query(`select Hid, YEAR, Land_use_OG, Land_use_2015,
+        Living_quarter_OG, Living_quarter_2016, Income, Income_2015,
+        Num_crime_reported, Head_race, Head_hispanic
+        from Household
+        where YEAR = ${Year} and Land_use_OG LIKE '%${Land_use_OG}%' and Land_use_2015 LIKE '%${Land_use_2015}%'
+        and Living_quarter_OG LIKE '%${Living_quarter_OG}%' and Living_quarter_2016 LIKE '%${Living_quarter_2016}%'
+        and Income LIKE '%${Income}%' and Income_2015 LIKE '%${Income_2015}%'
+        and Num_crime_reported >= ${Num_crime_reported_low} and Num_crime_reported <=${Num_crime_reported_high}
+        and Head_race LIKE '%${Head_race}%' and Head_hispanic LIKE '%${Head_hispanic}%'
+        order by Hid
+        limit ${(parseInt(page)-1)*pagesize},${pagesize}
         `,function(error, results,fields){
             if(error){
                 res.json({error:error});
@@ -184,15 +155,23 @@ async function search_households(req, res) {
             }
         });
     } else {
-        connection.query(`select MatchId,Date,Time, HomeTeam as Home,AwayTeam as Away, FullTimeGoalsH as HomeGoals,
-        FullTimeGoalsA as AwayGoals
-        from Matches
-        where HomeTeam like '%${home}%' and AwayTeam like '%${away}%'
-        order by HomeTeam,AwayTeam
+        connection.query(`select Hid, YEAR, Land_use_OG, Land_use_2015,
+        Living_quarter_OG, Living_quarter_2016, Income, Income_2015,
+        Num_crime_reported, Head_race, Head_hispanic
+        from Household
+        where YEAR = ${Year} and Land_use_OG LIKE '%${Land_use_OG}%' and Land_use_2015 LIKE '%${Land_use_2015}%'
+        and Living_quarter_OG LIKE '%${Living_quarter_OG}%' and Living_quarter_2016 LIKE '%${Living_quarter_2016}%'
+        and Income LIKE '%${Income}%' and Income_2015 LIKE '%${Income_2015}%'
+        and Num_crime_reported >= ${Num_crime_reported_low} and Num_crime_reported <=${Num_crime_reported_high}
+        and Head_race LIKE '%${Head_race}%' and Head_hispanic LIKE '%${Head_hispanic}%'
+        order by Hid
+        limit ${(parseInt(page)-1)*pagesize},${pagesize}
         `,function(error, results,fields){
             if(error){
+                console.log(error)
                 res.json({error:error});
             } else if (results){
+                console.log(results)
                 if(results.length ==0){
                     res.json({results:[]});
                 } else {
@@ -316,7 +295,7 @@ module.exports = {
     hello,
     test,
     search_households,
-    search_persons
+    search_persons,
 }
 
 
