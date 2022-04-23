@@ -263,6 +263,7 @@ async function search_persons(req, res) {
 async function weaponVisualization(req, res) {
     // TODO: TASK 9: implement and test, potentially writing your own (ungraded) tests
     // IMPORTANT: in your SQL LIKE matching, use the %query% format to match the search query to substrings, not just the entire string
+    console.log("hi")
     
     connection.query(`WITH VictimHouse AS (
         SELECT Hid, Victim_id AS Pid, If_weapon AS weapon_involved
@@ -275,7 +276,7 @@ async function weaponVisualization(req, res) {
            COUNT(CASE WHEN v.weapon_involved > 3 THEN 1 END) / COUNT(*) AS Others
     FROM Household h JOIN VictimHouse v ON h.Hid = v.Hid
     GROUP BY h.Income
-    ORDER BY h.Income ASC;
+    ORDER BY No_weapon_involved ASC;
     `,function(error, results,fields){
         if(error){
             console.log(error)
@@ -296,6 +297,7 @@ module.exports = {
     test,
     search_households,
     search_persons,
+    weaponVisualization
 }
 
 

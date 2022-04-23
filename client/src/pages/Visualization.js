@@ -4,6 +4,20 @@ import { Form, FormInput, FormGroup, Button, Card, CardBody, CardTitle, Progress
 
 
 import {
+    FlexibleXYPlot,
+    XAxis,
+    YAxis,
+    VerticalGridLines,
+    HorizontalGridLines,
+    VerticalBarSeries,
+    VerticalBarSeriesCanvas,
+    DiscreteColorLegend
+  } from 'react-vis';
+
+import { format } from 'd3-format';
+
+
+import {
     Table,
     Pagination,
     Row,
@@ -18,6 +32,7 @@ import { getVisualization1 } from '../fetcher'
 import MenuBar from '../components/MenuBar';
 
 const { Column, ColumnGroup } = Table;
+const wideFormat = format('.3r');
 
 
 class VisualizationPage extends React.Component {
@@ -25,6 +40,7 @@ class VisualizationPage extends React.Component {
         super(props)
         //initial states setup
         this.state = {
+            useCanvas : false,
             visualization1Results: []
 
         }
@@ -40,46 +56,81 @@ class VisualizationPage extends React.Component {
 
 
     render() {
-        const xValues = this.state.visualization1Results.Income_Bracket;
+
+        const {useCanvas} = this.state;
+        const BarSeries = useCanvas ? VerticalBarSeriesCanvas : VerticalBarSeries;
+        var array = [];
+        for (const item of this.state.visualization1Results) {
+            console.log(item);
+            array.push(item.Income_bracket);
+        }
+        const xValues = array;
+
+        var array2 = [];
+        for (const item of this.state.visualization1Results) {
+            array2.push(item.Weapon_involved);
+        }
+        const t1 = array2;
+
+        var array3 = [];
+        for (const item of this.state.visualization1Results) {
+            array3.push(item.No_weapon_involved);
+        }
+        const t2 = array3;
+
+        var array4 = [];
+        for (const item of this.state.visualization1Results) {
+            array4.push(item.Do_not_know);
+        }
+        const t3 = array4;
+
+        var array5 = [];
+        for (const item of this.state.visualization1Results) {
+            array5.push(item.Other);
+        }
+        const t4 = array5;
 
         var trace1 = {
             x:xValues,
-            y: this.state.visualization1Results.Weapon_involved,
+            y: t1,
             name: 'weapon involved',
             type: 'bar'
         } ;
 
         var trace2 = {
             x:xValues,
-            y: this.state.visualization1Results.No_weapon_involved,
+            y: t2,
             name: 'No weapon involved',
             type: 'bar'
         };
 
         var trace3 = {
             x:xValues,
-            y: this.state.visualization1Results.Do_not_know,
+            y: t3,
             name: 'Do_not_know',
             type: 'bar'
         };
 
         var trace4 = {
             x: xValues,
-            y: this.state.visualization1Results.Do_not_know,
-            name: 'Do_not_know',
+            y: t4,
+            name: 'Other',
             type: 'bar'
         };
 
-        var data = [trace1, trace2, trace3, trace4];
+        // var data = [trace1, trace2, trace3, trace4];
 
-        var layout = {barmode: 'stack'};
+        // var layout = {barmode: 'stack'};
 
-        Plot.newPlot('myDiv', data, layout);
+        // Plot.newPlot('myDiv', data, layout);
+        console.log(xValues);
 
         return (
-            <div>
-                <div id="myDiv" style="width:100%;max-width:700px"></div>
-            </div>
+            <Plot
+                data={[ trace1, trace2, trace3, trace4
+                ]}
+                layout={ {width: 700, height: 400, title: 'A Fancy Plot', barmode: "stack", yaxis: {automargin: true} }}
+          />
         )
     }
 }
