@@ -60,35 +60,35 @@ class VisualizationPage extends React.Component {
         const {useCanvas} = this.state;
         const BarSeries = useCanvas ? VerticalBarSeriesCanvas : VerticalBarSeries;
         var array = [];
-        for (const item of this.state.visualization1Results) {
+        for (const item in this.state.visualization1Results) {
             console.log(item);
             array.push(item.Income_bracket);
         }
-        const xValues = array;
+        var xValues = array;
 
         var array2 = [];
-        for (const item of this.state.visualization1Results) {
+        for (const item in this.state.visualization1Results) {
             array2.push(item.Weapon_involved);
         }
-        const t1 = array2;
+        var t1 = array2;
 
         var array3 = [];
-        for (const item of this.state.visualization1Results) {
+        for (const item in this.state.visualization1Results) {
             array3.push(item.No_weapon_involved);
         }
-        const t2 = array3;
+        var t2 = array3;
 
         var array4 = [];
-        for (const item of this.state.visualization1Results) {
+        for (const item in this.state.visualization1Results) {
             array4.push(item.Do_not_know);
         }
-        const t3 = array4;
+        var t3 = array4;
 
         var array5 = [];
-        for (const item of this.state.visualization1Results) {
+        for (const item in this.state.visualization1Results) {
             array5.push(item.Other);
         }
-        const t4 = array5;
+        var t4 = array5;
 
         var trace1 = {
             x:xValues,

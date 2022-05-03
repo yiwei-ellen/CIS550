@@ -9,6 +9,8 @@ import {
 import HomePage from './pages/HomePage';
 import PersonsPage from './pages/PersonsPage';
 import VisualizationPage from './pages/Visualization';
+import PcrimePage from './pages/Pcrime';
+import HcrimePage from './pages/Hcrime';
 import 'antd/dist/antd.css';
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -38,6 +40,16 @@ ReactDOM.render(
 							path="/visuals"
 							render={() => (
 								<VisualizationPage />
+							)}/>
+		<Route exact
+							path="/personcrime"
+							render={() => (
+								<PcrimePage />
+							)}/>
+		<Route exact
+							path="/householdcrime"
+							render={() => (
+								<HcrimePage />
 							)}/>
 
       </Switch>

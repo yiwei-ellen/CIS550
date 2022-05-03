@@ -61,57 +61,8 @@ async function test(req, res) {
 // ********************************************
 
 
-// Route 3 (handler)
-/*
-async function all_households(req, res) {
-    // TODO: TASK 4: implement and test, potentially writing your own (ungraded) tests
-    // We have partially implemented this function for you to 
-    // parse in the league encoding - this is how you would use the ternary operator to set a variable to a default value
-    // in reality, league will never be undefined since URLs will need to match matches/:league for the request to be routed here... 
-    const pagesize = req.query.pagesize ? req.query.pagesize : 10;
-    // use this league encoding in your query to furnish the correct results
-
-    if (req.query.page && !isNaN(parseInt(req.query.page))) {
-        // This is the case where page is defined.
-        // The SQL schema has the attribute OverallRating, but modify it to match spec! 
-        // TODO: query and return results here:
-        connection.query(`SELECT MatchId, Date, Time, HomeTeam AS Home, AwayTeam AS Away, FullTimeGoalsH AS HomeGoals, FullTimeGoalsA AS AwayGoals  
-        FROM Matches 
-        WHERE Division = '${league}'
-        ORDER BY HomeTeam, AwayTeam
-        LIMIT ${(parseInt(req.query.page)-1)*pagesize},${pagesize}`, function (error, results, fields) {
-            if (error) {
-                console.log(error);
-                res.json({ error: error });
-            } else if (results) {
-                res.json({ results: results });
-            }
-        });
-    } else {
-        // we have implemented this for you to see how to return results by querying the database
-        connection.query(`SELECT MatchId, Date, Time, HomeTeam AS Home, AwayTeam AS Away, FullTimeGoalsH AS HomeGoals, FullTimeGoalsA AS AwayGoals  
-        FROM Matches 
-        WHERE Division = '${league}'
-        ORDER BY HomeTeam, AwayTeam`, function (error, results, fields) {
-            if (error) {
-                console.log(error);
-                res.json({ error: error });
-            } else if (results) {
-                res.json({ results: results });
-            }
-        });
-    }
-}*/
-
-// Route 4 (handler)
 
 
-
-
-
-// ********************************************
-//             SEARCH ROUTES
-// ********************************************
 
 // Route 7 (handler)
 async function search_households(req, res) {
@@ -292,12 +243,35 @@ async function weaponVisualization(req, res) {
     });
 }
 
+async function relJobVictim (req,res){
+    console.log("function called");
+    connection.query(`select year as Year, COUNT(CASE WHEN If_job_sixmonth = 'No' THEN 1 END)/count(*) as Proportion
+    from Person P
+    where P.If_job_sixmonth = 'No' or P.If_job_sixmonth = 'Yes'
+    group by P.year
+        `,function(error, results,fields){
+            if(error){
+                console.log(error)
+                res.json({error:error});
+            } else if (results){
+                console.log("job victim database called, results: ");
+                console.log(results)
+                if(results.length ==0){
+                    res.json({results:[]});
+                } else {
+                    res.json({results:results});
+                }    
+            }
+        });
+}
+
 module.exports = {
     hello,
     test,
     search_households,
     search_persons,
-    weaponVisualization
+    weaponVisualization,
+    relJobVictim
 }
 
 

@@ -41,11 +41,16 @@ const getPersonsSearch = async (Year, Age, Sex, Race, Hispanic, Times_moved_low,
     return res.json()
 }
 
-
-const getVisualization1 = async () => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/visualization1`, {
+const relJobVictim = async() =>{
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/rel_job_victim`, {
         method: 'GET',
     })
+    return res.json()
+}
+
+
+const getVisualization1 = async () => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/visualization1`)
     return res.json()
 }
 
@@ -54,5 +59,6 @@ export {
     // getAllHouseholds,
     getHouseholdSearch,
     getPersonsSearch,
-    getVisualization1
+    getVisualization1,
+    relJobVictim
 }

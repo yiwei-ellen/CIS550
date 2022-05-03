@@ -35,6 +35,8 @@ app.get('/search/persons', routes.search_persons)
 
 app.get('/visualization1', routes.weaponVisualization)
 
+app.get('/rel_job_victim',routes.relJobVictim)
+
 
 
 
