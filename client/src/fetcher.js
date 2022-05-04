@@ -48,6 +48,20 @@ const relJobVictim = async() =>{
     return res.json()
 }
 
+const relRaceVictim = async()=>{
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/rel_race_victim`, {
+        method: 'GET',
+    })
+    return res.json()
+}
+
+const relOldVictim = async()=>{
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/rel_old_victim`, {
+        method: 'GET',
+    })
+    return res.json()
+}
+
 
 const getVisualization1 = async () => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/visualization1`)
@@ -60,5 +74,6 @@ export {
     getHouseholdSearch,
     getPersonsSearch,
     getVisualization1,
-    relJobVictim
+    relJobVictim,
+    relRaceVictim
 }
