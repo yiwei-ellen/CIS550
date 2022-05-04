@@ -22,28 +22,36 @@ class PcrimePage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            jobResults: [],
-            value:"disabled"
+            personsResults: [],
+            value:"disabled",
+            xarray:[],
+            yarray:[],
+            title:''
 
         }
 
         this.updateSearchResults = this.updateSearchResults.bind(this)
         this.handleChange = this.handleChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
-        this.implementGraph = this.implementGraph.bind(this)
     }
 
-    implementGraph(){
-
-
-    }
     updateSearchResults() {
  
         if (this.state.value =='job'){
-            alert("called job")
+            console.log("called job")
             relJobVictim().then(res => {
-                this.setState({ personsResults: res.results })
+                this.setState({ personsResults: res.results });
+                console.log(this.state.personsResults.length)
+                var arrx = [];
+                var arry = [];
+                for( var i=0;i< this.state.personsResults.length;i++){
+                    arrx.push(this.state.personsResults[i].Year);
+                    arry.push(this.state.personsResults[i].Proportion);
+                }
+                this.setState({ xarray: arrx });
+                this.setState({ yarray: arry });
             })
+            
         } else if (this.state.value =='sex'){
 
         } else if (this.state.value =='race'){
@@ -54,9 +62,7 @@ class PcrimePage extends React.Component {
     }
 
     componentDidMount() {
-        relJobVictim().then(res => {
-            this.setState({ jobResults: res.results })
-        })
+        this.setState({personsResults: [],arrx:[],arry:[]})
     }
     handleChange(event) {
         this.setState({value: event.target.value})
@@ -69,6 +75,15 @@ class PcrimePage extends React.Component {
         
     }
     render() {
+        var trace1 = {
+            x: this.state.xarray,
+            y: this.state.yarray,
+            name: 'fun',
+            type: 'scatter'
+          };
+          
+          
+          
         return (
 
             <div>
@@ -79,7 +94,7 @@ class PcrimePage extends React.Component {
                 <Form  onSubmit={this.handleSubmit}>
                         <h4>Pick your inquiry: </h4>
                         <Col span={12}> <select type="primary" defaultValue ="disabled" value={this.state.value} onChange={this.handleChange}>
-                            <option value="race">Race</option>
+                            <option value="race">Hispanic</option>
                             <option value="sex">Sex</option>
                             <option value="job">Job</option>
                             <option value="disabled" disabled> default</option>
@@ -88,6 +103,10 @@ class PcrimePage extends React.Component {
                 </Form>
                 
                 </Row>
+                <Plot
+                data={[ trace1]}
+                layout={ {width: 700, height: 400, title: 'Plot', yaxis: {automargin: true} }}
+                />
                         
                     
                 </div>

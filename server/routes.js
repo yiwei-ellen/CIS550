@@ -255,11 +255,14 @@ async function relJobVictim (req,res){
                 res.json({error:error});
             } else if (results){
                 console.log("job victim database called, results: ");
-                console.log(results)
+                //console.log(results)
                 if(results.length ==0){
                     res.json({results:[]});
                 } else {
-                    res.json({results:results});
+                    ans = []
+                    ans=JSON.parse(JSON.stringify(results))
+                    console.log(ans)
+                    res.json({results:ans});
                 }    
             }
         });
