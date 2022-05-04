@@ -15,6 +15,7 @@ import {
   } from 'react-vis';
 
 import { format } from 'd3-format';
+import MenuBar from '../components/MenuBar';
 
 
 import {
@@ -27,9 +28,8 @@ import {
 } from 'antd'
 
 import { getVisualization1 } from '../fetcher'
+import { relJobVictim } from '../fetcher'
 
-
-import MenuBar from '../components/MenuBar';
 
 const { Column, ColumnGroup } = Table;
 const wideFormat = format('.3r');
@@ -41,7 +41,8 @@ class VisualizationPage extends React.Component {
         //initial states setup
         this.state = {
             useCanvas : false,
-            visualization1Results: []
+            visualization1Results: [],
+            visualization2Results: []
 
         }
 
@@ -51,44 +52,35 @@ class VisualizationPage extends React.Component {
         getVisualization1().then(res => {
             this.setState({ visualization1Results: res.results })
         })
+        relJobVictim().then(res => {
+            this.setState({ visualization2Results: res.results })
+        })
         
     }
 
 
     render() {
+        
 
         const {useCanvas} = this.state;
         const BarSeries = useCanvas ? VerticalBarSeriesCanvas : VerticalBarSeries;
         var array = [];
-        for (const item in this.state.visualization1Results) {
-            console.log(item);
-            array.push(item.Income_bracket);
-        }
-        var xValues = array;
+        console.log(this.state.visualization1Results);
 
-        var array2 = [];
-        for (const item in this.state.visualization1Results) {
-            array2.push(item.Weapon_involved);
+        var xValues = [];
+        var t1 = [];
+        var t2 = [];
+        var t3 = [];
+        var t4 = [];
+        
+        for (var i = 0; i < this.state.visualization1Results.length; i++) {
+            var item = this.state.visualization1Results[i];
+            xValues.push(item.Income_bracket);
+            t1.push(item.Weapon_involved);
+            t2.push(item.No_weapon_involved);
+            t3.push(item.Do_not_know);
+            t4.push(item.Others);
         }
-        var t1 = array2;
-
-        var array3 = [];
-        for (const item in this.state.visualization1Results) {
-            array3.push(item.No_weapon_involved);
-        }
-        var t2 = array3;
-
-        var array4 = [];
-        for (const item in this.state.visualization1Results) {
-            array4.push(item.Do_not_know);
-        }
-        var t3 = array4;
-
-        var array5 = [];
-        for (const item in this.state.visualization1Results) {
-            array5.push(item.Other);
-        }
-        var t4 = array5;
 
         var trace1 = {
             x:xValues,
@@ -118,19 +110,40 @@ class VisualizationPage extends React.Component {
             type: 'bar'
         };
 
-        // var data = [trace1, trace2, trace3, trace4];
+        var years = [];
+        var prop = [];
+        
+        for (var i = 0; i < this.state.visualization2Results.length; i++) {
+            var item = this.state.visualization2Results[i];
+            years.push(item.Year);
+            prop.push(item.Proportion);
+        }
 
-        // var layout = {barmode: 'stack'};
-
-        // Plot.newPlot('myDiv', data, layout);
-        console.log(xValues);
+        var propTrace = {
+            x: years,
+            y: prop,
+            name: 'Do_not_know',
+            type: 'bar'
+        };
 
         return (
-            <Plot
-                data={[ trace1, trace2, trace3, trace4
-                ]}
-                layout={ {width: 700, height: 400, title: 'A Fancy Plot', barmode: "stack", yaxis: {automargin: true} }}
-          />
+            <div>
+                <MenuBar/>
+                <div>
+                    <Plot
+                        data={[ trace1, trace2, trace3, trace4
+                        ]}
+                        layout={ {width: 1200, height: 600, title: 'Weapon Use by Income Bracket', barmode: "stack", yaxis: {automargin: true} }}
+                    />
+                </div>
+                <div>
+                    <Plot
+                        data={[ propTrace
+                        ]}
+                        layout={ {width: 1200, height: 600, title: 'Proportion of Criminals Unemployed', yaxis: {automargin: true} }}
+                    />
+                </div>
+          </div>
         )
     }
 }
