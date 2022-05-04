@@ -245,6 +245,84 @@ async function weaponVisualization(req, res) {
     });
 }
 
+// Route 10 (handler)
+async function monthVisualization(req, res) {
+// TODO: TASK 9: implement and test, potentially writing your own (ungraded) tests
+// IMPORTANT: in your SQL LIKE matching, use the %query% format to match the search query to substrings, not just the entire string
+
+connection.query(`WITH Crime AS (
+    SELECT Month,
+           COUNT(CASE WHEN V4066  = 1 THEN 1 END) AS Something_taken,
+           COUNT(CASE WHEN V4067  = 1 THEN 1 END) AS Attempted_theft,
+           COUNT(CASE WHEN V4068  = 1 THEN 1 END) AS Harassed_abusive_language,
+           COUNT(CASE WHEN V4069  = 1 THEN 1 END) AS Sexual_contact_force,
+           COUNT(CASE WHEN V4070  = 1 THEN 1 END) AS Sexual_contact_no_force,
+           COUNT(CASE WHEN Forcible_entry_home  = 1 THEN 1 END) AS Forcible_entry_home,
+           COUNT(CASE WHEN V4072  = 1 THEN 1 END) AS Forcible_entry_car,
+           COUNT(CASE WHEN V4073  = 1 THEN 1 END) AS Property_damage,
+           COUNT(CASE WHEN V4074  = 1 THEN 1 END) AS Attempted_prop_damage,
+           COUNT(CASE WHEN V4075  = 1 THEN 1 END) AS Others
+    FROM Incident
+    GROUP BY Month
+    ), Crime_union AS (
+        SELECT crime,
+               Month,
+               SUM(value) AS value
+        FROM (
+            SELECT Month, Something_taken AS value, "Something_taken" AS crime
+            FROM Crime
+            UNION ALL
+            SELECT Month, Attempted_theft AS value, "Attempted_theft" AS crime
+            FROM Crime
+            UNION ALL
+            SELECT Month, Harassed_abusive_language AS value, "Harassed_abusive_language" AS crime
+            FROM Crime
+            UNION ALL
+            SELECT Month, Sexual_contact_force AS value, "Sexual_contact_force" AS Sexual_contact_force
+            FROM Crime
+            UNION ALL
+            SELECT Month, Sexual_contact_no_force AS value, "Sexual_contact_no_force" AS crime
+            FROM Crime
+            UNION ALL
+            SELECT Month, Forcible_entry_home AS value, "Forcible_entry_home" AS crime
+            FROM Crime
+            UNION ALL
+            SELECT Month, Forcible_entry_car AS value, "Forcible_entry_car" AS crime
+            FROM Crime
+            UNION ALL
+            SELECT Month, Property_damage AS value, "Property_damage" AS crime
+            FROM Crime
+            UNION ALL
+            SELECT Month, Attempted_prop_damage AS value, "Attempted_prop_damage" AS crime
+            FROM Crime
+            UNION ALL
+            SELECT Month, Others AS value, "Others" AS crime
+            FROM Crime
+            ) a
+        GROUP by crime, Month
+    ), Max_Month AS (
+    SELECT crime, MAX(value) AS max_value
+    FROM Crime_union
+    GROUP BY crime
+    )
+SELECT m.crime AS crime, c.Month as Max_month
+FROM Max_Month m JOIN Crime_union c ON m.crime = c.crime AND m.max_value= c.value
+ORDER BY c.Month ASC;
+`,function(error, results,fields){
+    if(error){
+        console.log(error)
+        res.json({error:error});
+    } else if (results){
+        console.log(results)
+        if(results.length ==0){
+            res.json({results:[]});
+        } else {
+            res.json({results:results});
+        }    
+    }
+});
+}
+
 async function relJobVictim (req,res){
     console.log("function called");
     connection.query(`select year as Year, COUNT(CASE WHEN If_job_sixmonth = 'No' THEN 1 END)/count(*) as Proportion
@@ -325,6 +403,7 @@ module.exports = {
     search_households,
     search_persons,
     weaponVisualization,
+    monthVisualization,
     relJobVictim,
     relRaceVictim,
     relOldVictim,

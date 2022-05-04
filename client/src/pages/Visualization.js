@@ -28,6 +28,7 @@ import {
 } from 'antd'
 
 import { getVisualization1 } from '../fetcher'
+import { getVisualization2 } from '../fetcher'
 import { relJobVictim } from '../fetcher'
 
 
@@ -42,7 +43,8 @@ class VisualizationPage extends React.Component {
         this.state = {
             useCanvas : false,
             visualization1Results: [],
-            visualization2Results: []
+            visualization2Results: [],
+            visualization3Results: []
 
         }
 
@@ -52,8 +54,11 @@ class VisualizationPage extends React.Component {
         getVisualization1().then(res => {
             this.setState({ visualization1Results: res.results })
         })
-        relJobVictim().then(res => {
+        getVisualization2().then(res => {
             this.setState({ visualization2Results: res.results })
+        })
+        relJobVictim().then(res => {
+            this.setState({ visualization3Results: res.results })
         })
         
     }
@@ -113,8 +118,8 @@ class VisualizationPage extends React.Component {
         var years = [];
         var prop = [];
         
-        for (var i = 0; i < this.state.visualization2Results.length; i++) {
-            var item = this.state.visualization2Results[i];
+        for (var i = 0; i < this.state.visualization3Results.length; i++) {
+            var item = this.state.visualization3Results[i];
             years.push(item.Year);
             prop.push(item.Proportion);
         }
@@ -125,6 +130,40 @@ class VisualizationPage extends React.Component {
             name: 'Do_not_know',
             type: 'bar'
         };
+
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+        ];
+
+
+        var crimes = [];
+        var months = [];
+
+        for (var i = 0; i < this.state.visualization2Results.length; i++) {
+            var item = this.state.visualization2Results[i];
+            crimes.push((item.crime).replaceAll("_", " "));
+            months.push(monthNames[item.Max_month - 1]);
+        }
+
+        const values = [
+            crimes,
+            months,
+        ];
+
+        const headers = [["<b> Crime </b>"], ["<b>  Month </b>"]];
+        const data = [
+            {
+            type: "table",
+            header: {
+                values: headers,
+                align: "center",
+            },
+            cells: {
+                values: values,
+                align: "center",
+            },
+            },
+        ];
 
         return (
             <div>
@@ -142,6 +181,11 @@ class VisualizationPage extends React.Component {
                         ]}
                         layout={ {width: 1200, height: 600, title: 'Proportion of Criminals Unemployed', yaxis: {automargin: true} }}
                     />
+                </div>
+                <div>
+                <Plot
+                    data={data}
+                    layout={ {width: 1000, height: 600, title: 'Month Where Specific Crimes are Committed Most'} } />
                 </div>
           </div>
         )
