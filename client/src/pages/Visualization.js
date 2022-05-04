@@ -28,6 +28,7 @@ import {
 } from 'antd'
 
 import { getVisualization1 } from '../fetcher'
+import { relJobVictim } from '../fetcher'
 
 
 const { Column, ColumnGroup } = Table;
@@ -40,7 +41,8 @@ class VisualizationPage extends React.Component {
         //initial states setup
         this.state = {
             useCanvas : false,
-            visualization1Results: []
+            visualization1Results: [],
+            visualization2Results: []
 
         }
 
@@ -49,6 +51,9 @@ class VisualizationPage extends React.Component {
     componentDidMount() {
         getVisualization1().then(res => {
             this.setState({ visualization1Results: res.results })
+        })
+        relJobVictim().then(res => {
+            this.setState({ visualization2Results: res.results })
         })
         
     }
@@ -72,9 +77,9 @@ class VisualizationPage extends React.Component {
             var item = this.state.visualization1Results[i];
             xValues.push(item.Income_bracket);
             t1.push(item.Weapon_involved);
-            t2.push(item.Weapon_involved);
-            t3.push(item.Weapon_involved);
-            t4.push(item.Weapon_involved);
+            t2.push(item.No_weapon_involved);
+            t3.push(item.Do_not_know);
+            t4.push(item.Others);
         }
 
         var trace1 = {
@@ -105,12 +110,21 @@ class VisualizationPage extends React.Component {
             type: 'bar'
         };
 
-        // var data = [trace1, trace2, trace3, trace4];
+        var years = [];
+        var prop = [];
+        
+        for (var i = 0; i < this.state.visualization2Results.length; i++) {
+            var item = this.state.visualization2Results[i];
+            years.push(item.Year);
+            prop.push(item.Proportion);
+        }
 
-        // var layout = {barmode: 'stack'};
-
-        // Plot.newPlot('myDiv', data, layout);
-        console.log(xValues);
+        var propTrace = {
+            x: years,
+            y: prop,
+            name: 'Do_not_know',
+            type: 'bar'
+        };
 
         return (
             <div>
@@ -120,8 +134,15 @@ class VisualizationPage extends React.Component {
                         data={[ trace1, trace2, trace3, trace4
                         ]}
                         layout={ {width: 1200, height: 600, title: 'Weapon Use by Income Bracket', barmode: "stack", yaxis: {automargin: true} }}
-                />
-            </div>
+                    />
+                </div>
+                <div>
+                    <Plot
+                        data={[ propTrace
+                        ]}
+                        layout={ {width: 1200, height: 600, title: 'Proportion of Criminals Unemployed', yaxis: {automargin: true} }}
+                    />
+                </div>
           </div>
         )
     }
