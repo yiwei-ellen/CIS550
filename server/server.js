@@ -17,16 +17,6 @@ app.get('/hello', routes.hello)
 // Route 2 - register as GET 
 app.get('/test', routes.test)
 
-// Route 3 - register as GET 
-//app.get('/households', routes.all_households)
-
-
-// Route 5 - register as GET 
-//app.get('/match', routes.match)
-
-// Route 6 - register as GET 
-//app.get('/player', routes.player)
-
 // Route 7 - register as GET 
 app.get('/search/households', routes.search_households)
 
@@ -35,7 +25,12 @@ app.get('/search/persons', routes.search_persons)
 
 app.get('/visualization1', routes.weaponVisualization)
 
+//Route x-x Person Crime page
 app.get('/rel_job_victim',routes.relJobVictim)
+
+app.get('/rel_race_victim',routes.relRaceVictim)
+
+app.get('/rel_old_victim',routes.relOldVictim)
 
 
 

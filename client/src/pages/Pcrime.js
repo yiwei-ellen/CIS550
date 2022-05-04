@@ -12,7 +12,7 @@ import {
 import { format } from 'd3-format';
 
 import MenuBar from '../components/MenuBar';
-import { relJobVictim, } from '../fetcher'
+import { relJobVictim, relRaceVictim} from '../fetcher'
 //const { Option } = Select;
 
 
@@ -27,7 +27,6 @@ class PcrimePage extends React.Component {
             xarray:[],
             yarray:[],
             title:''
-
         }
 
         this.updateSearchResults = this.updateSearchResults.bind(this)
@@ -38,7 +37,6 @@ class PcrimePage extends React.Component {
     updateSearchResults() {
  
         if (this.state.value =='job'){
-            console.log("called job")
             relJobVictim().then(res => {
                 this.setState({ personsResults: res.results });
                 console.log(this.state.personsResults.length)
@@ -50,12 +48,25 @@ class PcrimePage extends React.Component {
                 }
                 this.setState({ xarray: arrx });
                 this.setState({ yarray: arry });
+                this.setState({ title: "Chance Of Being Victim While No Job" });
             })
             
         } else if (this.state.value =='sex'){
 
         } else if (this.state.value =='race'){
-
+            relRaceVictim().then(res => {
+                this.setState({ personsResults: res.results });
+                console.log(this.state.personsResults.length)
+                var arrx = [];
+                var arry = [];
+                for( var i=0;i< this.state.personsResults.length;i++){
+                    arrx.push(this.state.personsResults[i].Year);
+                    arry.push(this.state.personsResults[i].Proportion);
+                }
+                this.setState({ xarray: arrx });
+                this.setState({ yarray: arry });
+                this.setState({ title: "Chance Of Being Victim For Being Hispanic" });
+            })
         }
         
         //TASK 23: call getPlayerSearch and update playerResults in state. See componentDidMount() for a hint
@@ -69,10 +80,8 @@ class PcrimePage extends React.Component {
     }
 
     handleSubmit(event) {
-        alert('Your favorite flavor is: ' + this.state.value);
         event.preventDefault();
         this.updateSearchResults();
-        
     }
     render() {
         var trace1 = {
@@ -104,8 +113,12 @@ class PcrimePage extends React.Component {
                 
                 </Row>
                 <Plot
-                data={[ trace1]}
-                layout={ {width: 700, height: 400, title: 'Plot', yaxis: {automargin: true} }}
+                data={[ {
+                    x:this.state.xarray,
+                    y:this.state.yarray,
+                    type:"scatter"
+                }]}
+                layout={ {width: 700, height: 400, title: this.state.title, yaxis: {automargin: true} }}
                 />
                         
                     

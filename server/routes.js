@@ -268,13 +268,65 @@ async function relJobVictim (req,res){
         });
 }
 
+async function relRaceVictim (req,res){
+    console.log("function called");
+    connection.query(`select Year, COUNT(CASE WHEN Hispanic = 'Yes' THEN 1 END)/count(*) as Proportion
+    from Person P
+    where P.Hispanic = 'No' or P.Hispanic = 'Yes'
+    group by P.year
+        `,function(error, results,fields){
+            if(error){
+                console.log(error)
+                res.json({error:error});
+            } else if (results){
+                console.log("race victim database called, results: ");
+                //console.log(results)
+                if(results.length ==0){
+                    res.json({results:[]});
+                } else {
+                    ans = []
+                    ans=JSON.parse(JSON.stringify(results))
+                    console.log(ans)
+                    res.json({results:ans});
+                }    
+            }
+        });
+}
+
+async function relOldVictim (req,res){
+    console.log("function called");
+    connection.query(`select Year, COUNT(CASE WHEN Age>=65 THEN 1 END)/count(*) as Proportion
+    from Person P
+    group by P.Year
+        `,function(error, results,fields){
+            if(error){
+                console.log(error)
+                res.json({error:error});
+            } else if (results){
+                console.log("old victim database called, results: ");
+                //console.log(results)
+                if(results.length ==0){
+                    res.json({results:[]});
+                } else {
+                    ans = []
+                    ans=JSON.parse(JSON.stringify(results))
+                    console.log(ans)
+                    res.json({results:ans});
+                }    
+            }
+        });
+}
+
 module.exports = {
     hello,
     test,
     search_households,
     search_persons,
     weaponVisualization,
-    relJobVictim
+    relJobVictim,
+    relRaceVictim,
+    relOldVictim,
+
 }
 
 
