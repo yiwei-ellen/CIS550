@@ -90,7 +90,8 @@ class PersonsPage extends React.Component {
         super(props)
         this.state = {
             YearQuery: 2015,
-            AgeQuery: 40,
+            Age_lowQuery: 0,
+            Age_highQuery: 40,
             SexQuery: '',
             RaceQuery: '',
             HispanicQuery: '',
@@ -123,8 +124,9 @@ class PersonsPage extends React.Component {
         this.setState({ YearQuery: event.target.value })
     }
 
-    handleAgeQueryChange(event) {
-        this.setState({ AgeQuery: event.target.value })
+    handleAgeQueryChange(value) {
+        this.setState({ Age_lowQuery: value[0] })
+        this.setState({ Age_highQuery: value[1] })
     }
 
     handleSexQueryChange(event) {
@@ -165,7 +167,7 @@ class PersonsPage extends React.Component {
 
 
     updateSearchResults() {
-        getPersonsSearch(this.state.YearQuery, this.state.AgeQuery, this.state.SexQuery, this.state.RaceQuery, this.state.HispanicQuery, 
+        getPersonsSearch(this.state.YearQuery, this.state.Age_LowQuery, this.state.Age_HighQuery, this.state.SexQuery, this.state.RaceQuery, this.state.HispanicQuery, 
             this.state.Times_moved_lowQuery, this.state.Times_moved_highQuery, this.state.If_job_sixmonthQuery, 
             this.state.Job_specificQuery, this.state.Job_typeQuery, this.state.Num_crime_lowQuery, 
             this.state.Num_crime_highQuery, 1, 10).then(res => {
@@ -177,7 +179,7 @@ class PersonsPage extends React.Component {
 
     componentDidMount() {
 
-        getPersonsSearch(this.state.YearQuery, this.state.AgeQuery, this.state.SexQuery, this.state.RaceQuery, this.state.HispanicQuery, 
+        getPersonsSearch(this.state.YearQuery, this.state.Age_lowQuery, this.state.Age_highQuery, this.state.SexQuery, this.state.RaceQuery, this.state.HispanicQuery, 
             this.state.Times_moved_lowQuery, this.state.Times_moved_highQuery, this.state.If_job_sixmonthQuery, 
             this.state.Job_specificQuery, this.state.Job_typeQuery, this.state.Num_crime_lowQuery, 
             this.state.Num_crime_highQuery, 1, 10).then(res => {
@@ -201,7 +203,7 @@ class PersonsPage extends React.Component {
                         </FormGroup></Col>
                         <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
                             <label>Age</label>
-                            <FormInput placeholder="Age" value={this.state.AgeQuery} onChange={this.handleAgeQueryChange} />
+                            <Slider range defaultValue={[0, 90]} onChange={this.handleAgeQueryChange} />
                         </FormGroup></Col>
                         <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
                             <label>Sex</label>
