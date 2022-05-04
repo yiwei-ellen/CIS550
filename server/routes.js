@@ -227,7 +227,9 @@ async function weaponVisualization(req, res) {
            COUNT(CASE WHEN v.weapon_involved > 3 THEN 1 END) / COUNT(*) AS Others
     FROM Household h JOIN VictimHouse v ON h.Hid = v.Hid
     GROUP BY h.Income
-    ORDER BY Income ASC;
+    HAVING h.Income <> "Out of universe" and h.Income <> "Residue" and h.Income <> "Less than $5,000"
+    and h.Income <> "$75,000 and over"
+    ORDER BY cast(Substr(h.Income, 2, 6) as UNSIGNED) ASC;
     `,function(error, results,fields){
         if(error){
             console.log(error)
