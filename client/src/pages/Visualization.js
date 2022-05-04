@@ -119,7 +119,7 @@ class VisualizationPage extends React.Component {
                     <Plot
                         data={[ trace1, trace2, trace3, trace4
                         ]}
-                        layout={ {width: 700, height: 400, title: 'A Fancy Plot', barmode: "stack", yaxis: {automargin: true} }}
+                        layout={ {width: 1200, height: 600, title: 'Weapon Use by Income Bracket', barmode: "stack", yaxis: {automargin: true} }}
                 />
             </div>
           </div>
