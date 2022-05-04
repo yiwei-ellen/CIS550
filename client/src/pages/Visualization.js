@@ -15,6 +15,7 @@ import {
   } from 'react-vis';
 
 import { format } from 'd3-format';
+import MenuBar from '../components/MenuBar';
 
 
 import {
@@ -28,8 +29,6 @@ import {
 
 import { getVisualization1 } from '../fetcher'
 
-
-import MenuBar from '../components/MenuBar';
 
 const { Column, ColumnGroup } = Table;
 const wideFormat = format('.3r');
@@ -56,39 +55,27 @@ class VisualizationPage extends React.Component {
 
 
     render() {
+        
 
         const {useCanvas} = this.state;
         const BarSeries = useCanvas ? VerticalBarSeriesCanvas : VerticalBarSeries;
         var array = [];
-        for (const item in this.state.visualization1Results) {
-            console.log(item);
-            array.push(item.Income_bracket);
-        }
-        var xValues = array;
+        console.log(this.state.visualization1Results);
 
-        var array2 = [];
-        for (const item in this.state.visualization1Results) {
-            array2.push(item.Weapon_involved);
+        var xValues = [];
+        var t1 = [];
+        var t2 = [];
+        var t3 = [];
+        var t4 = [];
+        
+        for (var i = 0; i < this.state.visualization1Results.length; i++) {
+            var item = this.state.visualization1Results[i];
+            xValues.push(item.Income_bracket);
+            t1.push(item.Weapon_involved);
+            t2.push(item.Weapon_involved);
+            t3.push(item.Weapon_involved);
+            t4.push(item.Weapon_involved);
         }
-        var t1 = array2;
-
-        var array3 = [];
-        for (const item in this.state.visualization1Results) {
-            array3.push(item.No_weapon_involved);
-        }
-        var t2 = array3;
-
-        var array4 = [];
-        for (const item in this.state.visualization1Results) {
-            array4.push(item.Do_not_know);
-        }
-        var t3 = array4;
-
-        var array5 = [];
-        for (const item in this.state.visualization1Results) {
-            array5.push(item.Other);
-        }
-        var t4 = array5;
 
         var trace1 = {
             x:xValues,
@@ -126,11 +113,16 @@ class VisualizationPage extends React.Component {
         console.log(xValues);
 
         return (
-            <Plot
-                data={[ trace1, trace2, trace3, trace4
-                ]}
-                layout={ {width: 700, height: 400, title: 'A Fancy Plot', barmode: "stack", yaxis: {automargin: true} }}
-          />
+            <div>
+                <MenuBar/>
+                <div>
+                    <Plot
+                        data={[ trace1, trace2, trace3, trace4
+                        ]}
+                        layout={ {width: 700, height: 400, title: 'A Fancy Plot', barmode: "stack", yaxis: {automargin: true} }}
+                />
+            </div>
+          </div>
         )
     }
 }
