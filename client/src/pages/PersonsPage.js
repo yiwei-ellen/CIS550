@@ -206,9 +206,9 @@ class PersonsPage extends React.Component {
                             <label>Age</label>
                             <Slider range defaultValue={[0, 90]} onChange={this.handleAgeQueryChange} />
                         </FormGroup></Col>
-                        <Form  onSubmit={this.handleGenderQuery} >
+                        <Form>
                             <label>Gender</label>
-                        <Col span={12}> <select type="primary" defaultValue ="Male" value={this.state.GenderQuery} onChange={this.handleGenderQueryChange}>
+                        <Col span={12}> <select type="primary" defaultValue ="Male" value={this.state.GenderQuery} onChange={this.handleSexQueryChange}>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
@@ -217,7 +217,7 @@ class PersonsPage extends React.Component {
                     </Row>
                     <br></br>
                     <Row>
-                        <Form  onSubmit={this.handleRaceQuery} >
+                        <Form >
                             <label>Race</label>
                         <Col span={12}> <select type="primary" defaultValue ="White only" value={this.state.RaceQuery} onChange={this.handleRaceQueryChange}>
                             <option value="White only">White only</option>
@@ -243,7 +243,7 @@ class PersonsPage extends React.Component {
                             <Col flex={2} style={{ width: '20vw', margin: '20 auto' }}></Col>
                         </select></Col>
                         </Form>
-                        <Form  onSubmit={this.handleHispanicQuery} >
+                        <Form>
                             <label>Hispanic</label>
                         <Col span={12}> <select type="primary" defaultValue ="No" value={this.state.HispanicQuery} onChange={this.handleHispanicQueryChange}>
                             <option value="No">No</option>
@@ -252,7 +252,7 @@ class PersonsPage extends React.Component {
                             <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
                         </select></Col>
                         </Form>
-                        <Form  onSubmit={this.handleIf_job_sixmonthQuery} >
+                        <Form>
                             <label>If_job_sixmonth</label>
                         <Col span={12}> <select type="primary" defaultValue ="No" value={this.state.If_job_sixmonthQuery} onChange={this.handleIf_job_sixmonthQueryChange}>
                             <option value="No">No</option>
@@ -265,7 +265,7 @@ class PersonsPage extends React.Component {
                     </Row>
                     <br></br>
                     <Row>
-                        <Form  onSubmit={this.handleJob_specificQuery} >
+                        <Form>
                             <label>Job_specific</label>
                         <Col span={12}> <select type="primary" defaultValue ="Something Else" value={this.state.Job_specificQuery} onChange={this.handleJob_specificQueryChange}>
                             <option value="Something Else">Something Else</option>
@@ -295,7 +295,7 @@ class PersonsPage extends React.Component {
                             <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
                         </select></Col>
                         </Form>
-                        <Form  onSubmit={this.handleJob_typeQuery} >
+                        <Form>
                             <label>Job_type</label>
                         <Col span={12}> <select type="primary" defaultValue ="A private company, business, or individual for wages" value={this.state.Job_typeQuery} onChange={this.handleJob_typeQueryChange}>
                             <option value="A private company, business, or individual for wages">A private company, business, or individual for wages</option>
