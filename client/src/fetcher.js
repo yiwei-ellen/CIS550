@@ -80,5 +80,6 @@ export {
     getVisualization1,
     getVisualization2,
     relJobVictim,
-    relRaceVictim
+    relRaceVictim,
+    relOldVictim
 }
