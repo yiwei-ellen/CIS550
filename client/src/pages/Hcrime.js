@@ -8,7 +8,7 @@ import {
 } from 'antd'
 
 import MenuBar from '../components/MenuBar';
-import { relJobHouse, relRaceVictim,relOldVictim} from '../fetcher'
+import { relJobHouse, relRaceVictim,relOldVictim, relJobVictim} from '../fetcher'
 //const { Option } = Select;
 
 
