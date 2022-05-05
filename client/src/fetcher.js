@@ -68,12 +68,17 @@ const getVisualization1 = async () => {
     return res.json()
 }
 
+const getVisualization2 = async () => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/visualization2`)
+    return res.json()
+}
 
 export {
     // getAllHouseholds,
     getHouseholdSearch,
     getPersonsSearch,
     getVisualization1,
+    getVisualization2,
     relJobVictim,
     relRaceVictim
 }
