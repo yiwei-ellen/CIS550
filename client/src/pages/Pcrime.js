@@ -1,18 +1,14 @@
 import React from 'react';
-import { Form, FormInput, FormGroup, Button, Card, CardBody, CardTitle, Progress } from "shards-react";
+import { Form} from "shards-react";
 import Plot from 'react-plotly.js';
 import {
-    Table,
-    Pagination,
-    Select,
     Input,
     Row,
     Col
 } from 'antd'
-import { format } from 'd3-format';
 
 import MenuBar from '../components/MenuBar';
-import { relJobVictim, relRaceVictim} from '../fetcher'
+import { relJobVictim, relRaceVictim,relOldVictim} from '../fetcher'
 //const { Option } = Select;
 
 
@@ -35,7 +31,7 @@ class PcrimePage extends React.Component {
     }
 
     updateSearchResults() {
- 
+ //depending on the option, graph the statistics to be presented 
         if (this.state.value =='job'){
             relJobVictim().then(res => {
                 this.setState({ personsResults: res.results });
@@ -51,7 +47,20 @@ class PcrimePage extends React.Component {
                 this.setState({ title: "Chance Of Being Victim While No Job" });
             })
             
-        } else if (this.state.value =='sex'){
+        } else if (this.state.value =='age'){
+            relOldVictim().then(res => {
+                this.setState({ personsResults: res.results });
+                console.log(this.state.personsResults.length)
+                var arrx = [];
+                var arry = [];
+                for( var i=0;i< this.state.personsResults.length;i++){
+                    arrx.push(this.state.personsResults[i].Year);
+                    arry.push(this.state.personsResults[i].Proportion);
+                }
+                this.setState({ xarray: arrx });
+                this.setState({ yarray: arry });
+                this.setState({ title: "Chance Of Being Victim For Being Elderly (>=65years)" });
+            })
 
         } else if (this.state.value =='race'){
             relRaceVictim().then(res => {
@@ -69,10 +78,11 @@ class PcrimePage extends React.Component {
             })
         }
         
-        //TASK 23: call getPlayerSearch and update playerResults in state. See componentDidMount() for a hint
+     
     }
 
     componentDidMount() {
+        //begin with no graph
         this.setState({personsResults: [],arrx:[],arry:[]})
     }
     handleChange(event) {
@@ -80,19 +90,11 @@ class PcrimePage extends React.Component {
     }
 
     handleSubmit(event) {
+        //handles the submission
         event.preventDefault();
         this.updateSearchResults();
     }
     render() {
-        var trace1 = {
-            x: this.state.xarray,
-            y: this.state.yarray,
-            name: 'fun',
-            type: 'scatter'
-          };
-          
-          
-          
         return (
 
             <div>
