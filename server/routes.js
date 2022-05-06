@@ -138,7 +138,8 @@ async function search_persons(req, res) {
     // TODO: TASK 9: implement and test, potentially writing your own (ungraded) tests
     // IMPORTANT: in your SQL LIKE matching, use the %query% format to match the search query to substrings, not just the entire string
     var Year = req.query.Year? req.query.Year :'';
-    var Age = req.query.Age? req.query.Age :'';
+    var Age_low = req.query.Age_low? req.query.Age_low :'';
+    var Age_high = req.query.Age_high? req.query.Age_high :'';
     var Sex = req.query.Sex? req.query.Sex :'';
     var Race = req.query.Race? req.query.Race :'';
     var Hispanic = req.query.Hispanic? req.query.Hispanic :'';
@@ -159,7 +160,7 @@ async function search_persons(req, res) {
         connection.query(`select Pid, Year, Age, Sex, Race, Hispanic,
         Times_moved, If_job_sixmonth, Job_specific, Job_type, Num_crime
         from Person
-        where Year = ${Year} and Age = ${Age} and Sex like '%${Sex}%' 
+        where Year = ${Year} and Age >= ${Age_low} and Age <=${Age_high} and Sex like '%${Sex}%' 
         and Race like '%${Race}%' and Hispanic like '%${Hispanic}%'
         and Times_moved>=${Times_moved_low} and Times_moved <=${Times_moved_high} 
         and If_job_sixmonth like '%${If_job_sixmonth }%'
@@ -185,7 +186,7 @@ async function search_persons(req, res) {
         connection.query(`select Pid, Year, Age, Sex, Race, Hispanic,
         Times_moved, If_job_sixmonth, Job_specific, Job_type, Num_crime
         from Person
-        where Year = ${Year} and Age = ${Age} and Sex like '%${Sex}%' 
+        where Year = ${Year} and Age >= ${Age_low} and Age <=${Age_high} and Sex like '%${Sex}%' 
         and Race like '%${Race}%' and Hispanic like '%${Hispanic}%'
         and Times_moved>=${Times_moved_low} and Times_moved <=${Times_moved_high} 
         and If_job_sixmonth like '%${If_job_sixmonth }%'

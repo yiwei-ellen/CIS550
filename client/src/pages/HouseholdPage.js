@@ -197,46 +197,129 @@ class HouseholdPage extends React.Component {
                             <label>Year</label>
                             <FormInput placeholder="Year" value={this.state.YearQuery} onChange={this.handleYearQueryChange} />
                         </FormGroup></Col>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
+                        <Form >
                             <label>Land_use_OG</label>
-                            <FormInput placeholder="Land_use_OG" value={this.state.Land_use_OGQuery} onChange={this.handleLand_use_OGQueryChange} />
-                        </FormGroup></Col>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
+                        <Col span={12}> <select type="primary" defaultValue ="Urban" value={this.state.Land_use_OGQuery} onChange={this.handleLand_use_OGQueryChange}>
+                            <option value="Urban">Urban</option>
+                            <option value="Rural">Rural</option>
+                            <option value="Residue">Residue</option>
+                            <option value="Out of universe">Out of universe</option>
+                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
+                        </select></Col>
+                        </Form>
+                        <Form >
                             <label>Land_use_2015</label>
-                            <FormInput placeholder="Land_use_2015" value={this.state.Land_use_2015Query} onChange={this.handleLand_use_2015QueryChange} />
-                        </FormGroup></Col>
-
+                        <Col span={12}> <select type="primary" defaultValue ="Urban" value={this.state.Land_use_2015Query} onChange={this.handleLand_use_2015QueryChange}>
+                            <option value="Urban">Urban</option>
+                            <option value="Rural">Rural</option>
+                            <option value="Out of universe">Out of universe</option>
+                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
+                        </select></Col>
+                        </Form>
                     </Row>
                     <br></br>
                     <Row>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
+                        <Form >
                             <label>Living_quarter_OG</label>
-                            <FormInput placeholder="Living_quarter_OG" value={this.state.Living_quarter_OGQuery} onChange={this.handleLiving_quarter_OGQueryChange} />
-                        </FormGroup></Col>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
-                            <label>Living_quarter_2016</label>
-                            <FormInput placeholder="Living_quarter_2016" value={this.state.Living_quarter_2016Query} onChange={this.handleLiving_quarter_2016QueryChange} />
-                        </FormGroup></Col>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
+                        <Col span={12}> <select type="primary" defaultValue ="House, apartment, flat" value={this.state.Living_quarter_OGQuery} onChange={this.handleLiving_quarter_OGQueryChange}>
+                            <option value="House, apartment, flat">House, apartment, flat</option>
+                            <option value="Mobile home or trailer with no permanent room added">Mobile home or trailer with no permanent room added</option>
+                            <option value="Mobile home or trailer with one or more permanent rooms added">Mobile home or trailer with one or more permanent rooms added</option>
+                            <option value="Other unit not specified above">Other unit not specified above</option>
+                            <option value="Student quarters in college dormitory">Student quarters in college dormitory</option>
+                            <option value="Unoccupied site for mobile home, trailer, or tent">Unoccupied site for mobile home, trailer, or tent</option>
+                            <option value="Housing unit not specified above">Housing unit not specified above</option>
+                            <option value="Housing unit in rooming house">Housing unit in rooming house</option>
+                            <option value="Quarters not housing unit in rooming or boarding house">Quarters not housing unit in rooming or boarding house</option>
+                            <option value="Housing unit in nontransient hotel, motel, etc.">Housing unit in nontransient hotel, motel, etc.</option>
+                            <option value="Housing unit permanent in transient hotel, motel, etc.">Housing unit permanent in transient hotel, motel, etc.</option>
+                            <option value="Unit not permanent in transient hotel, motel, etc.">Unit not permanent in transient hotel, motel, etc.</option>
+                            <option value="Invalid">Invalid</option>
+                            <option value="Residue">Residue</option>
+                            <option value="Out of universe">Out of universe</option>
+                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
+                        </select></Col>
+                        </Form>
+                        <Form >
                             <label>Income</label>
-                            <FormInput placeholder="Income" value={this.state.IncomeQuery} onChange={this.handleIncomeQueryChange} />
-                        </FormGroup></Col>
+                        <Col span={12}> <select type="primary" defaultValue ="Less than $5,000" value={this.state.IncomeQuery} onChange={this.handleIncomeQueryChange}>
+                            <option value="Less than $5,000">Less than $5,000</option>
+                            <option value="$5,000 to $7,499">$5,000 to $7,499</option>
+                            <option value="$7,500 to $9,999">$7,500 to $9,999</option>
+                            <option value="$10,000 to $12,499">$10,000 to $12,499</option>
+                            <option value="$12,500 to $14,999">$12,500 to $14,999</option>
+                            <option value="$15,000 to $17,499">$15,000 to $17,499</option>
+                            <option value="$17,500 to $19,999">$17,500 to $19,999</option>
+                            <option value="$20,000 to $24,999">$20,000 to $24,999</option>
+                            <option value="$25,000 to $29,999">$25,000 to $29,999</option>
+                            <option value="$30,000 to $34,999">$30,000 to $34,999</option>
+                            <option value="$35,000 to $39,999">$35,000 to $39,999</option>
+                            <option value="$40,000 to $49,999">$40,000 to $49,999</option>
+                            <option value="$50,000 to $74,999">$50,000 to $74,999</option>
+                            <option value="$75,000 and over">$75,000 and over</option>
+                            <option value="$75,000 to $99,999">$75,000 to $99,999</option>
+                            <option value="$100,000-$149,999">$100,000-$149,999</option>
+                            <option value="$150,000-$199,999">$150,000-$199,999</option>
+                            <option value="$200,000 or more">$200,000 or more</option>
+                            <option value="Residue">Residue</option>
+                            <option value="Out of universe">Out of universe</option>
+                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
+                        </select></Col>
+                        </Form>
 
                     </Row>
                     <br></br>
                     <Row>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
+                    <Form >
                             <label>Income_2015</label>
-                            <FormInput placeholder="Income_2015" value={this.state.Income_2015Query} onChange={this.handleIncome_2015QueryChange} />
-                        </FormGroup></Col>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
-                            <label>Head_race</label>
-                            <FormInput placeholder="Head_race" value={this.state.Head_raceQuery} onChange={this.handleHead_raceQueryChange} />
-                        </FormGroup></Col>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
-                            <label>Head_hispanic</label>
-                            <FormInput placeholder="Head_hispanic" value={this.state.Head_hispanicQuery} onChange={this.handleHead_hispanicQueryChange} />
-                        </FormGroup></Col>
+                        <Col span={12}> <select type="primary" defaultValue ="Less than $5,000" value={this.state.Income_2015Query} onChange={this.handleIncome_2015QueryChange}>
+                            <option value="Less than $5,000">Less than $5,000</option>
+                            <option value="$5,000 to $7,499">$5,000 to $7,499</option>
+                            <option value="$7,500 to $9,999">$7,500 to $9,999</option>
+                            <option value="$10,000 to $12,499">$10,000 to $12,499</option>
+                            <option value="$12,500 to $14,999">$12,500 to $14,999</option>
+                            <option value="$15,000 to $17,499">$15,000 to $17,499</option>
+                            <option value="$17,500 to $19,999">$17,500 to $19,999</option>
+                            <option value="$20,000 to $24,999">$20,000 to $24,999</option>
+                            <option value="$25,000 to $29,999">$25,000 to $29,999</option>
+                            <option value="$30,000 to $34,999">$30,000 to $34,999</option>
+                            <option value="$35,000 to $39,999">$35,000 to $39,999</option>
+                            <option value="$40,000 to $49,999">$40,000 to $49,999</option>
+                            <option value="$50,000 to $74,999">$50,000 to $74,999</option>
+                            <option value="$75,000 and over">$75,000 and over</option>
+                            <option value="$75,000 to $99,999">$75,000 to $99,999</option>
+                            <option value="$100,000-$149,999">$100,000-$149,999</option>
+                            <option value="$150,000-$199,999">$150,000-$199,999</option>
+                            <option value="$200,000 or more">$200,000 or more</option>
+                            <option value="Blank">Blank</option>
+                            <option value="Invalid until 2015 Q1">Invalid until 2015 Q1</option>
+                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
+                        </select></Col>
+                        </Form>
+                        <Form >
+                            <label>Head_Race</label>
+                        <Col span={12}> <select type="primary" defaultValue ="White only" value={this.state.Head_raceQuery} onChange={this.handleHead_raceQueryChange}>
+                            <option value="White only">White only</option>
+                            <option value="Black only">Black only</option>
+                            <option value="American Indian, Alaska native only">American Indian, Alaska native only</option>
+                            <option value="White-Black">White-Black</option>
+                            <option value="Asian only">Asian only</option>
+                            <option value="Hawaiian/Pacific Islander only">Hawaiian/Pacific Islander only</option>
+                            <option value="White-American Indian">White-American Indian</option>     
+                            <option value="White-Hawaiian/Pacific Islander">White-Hawaiian/Pacific Islander</option>
+                            <option value="Black-American Indian">Black-American Indian</option>
+                            <option value="White-Asian">White-Asian</option>
+                            <option value="White-Black-American Indian">White-Black-American Indian</option>
+                            <option value="Black-Asian">Black-Asian</option>
+                            <option value="Asian-Hawaiian/Pacific Islander">Asian-Hawaiian/Pacific Islander</option>
+                            <option value="4 or 5 races">4 or 5 races</option>
+                            <option value="Black-Hawaiian/Pacific Islander">Black-Hawaiian/Pacific Islander</option>
+                            <option value="White-Black-Asian">White-Black-Asian</option>
+                            <option value="2 or 3 races">2 or 3 races</option>
+                            <option value="Out of universe">Out of universe</option>
+                            <Col flex={2} style={{ width: '20vw', margin: '20 auto' }}></Col>
+                        </select></Col>
+                        </Form>
                     </Row>
                     <br></br>
                     <Row>

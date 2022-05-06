@@ -1,92 +1,136 @@
 import React from 'react';
+import { Form} from "shards-react";
+import Plot from 'react-plotly.js';
 import {
-    Select,
+    Input,
     Row,
+    Col
 } from 'antd'
-import { format } from 'd3-format';
 
 import MenuBar from '../components/MenuBar';
-import { relJobVictim } from '../fetcher'
-const wideFormat = format('.3r');
-const { Option } = Select;
-function handleChange(value) {
-    console.log(`selected ${value}`);
-}
+import { relJobHouse, relRaceVictim,relOldVictim, relJobVictim} from '../fetcher'
+//const { Option } = Select;
+
+
+
+
 class HcrimePage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            YearQuery: 2015,
-            AgeQuery: 40,
-            SexQuery: '',
-            RaceQuery: '',
-            HispanicQuery: '',
-            Times_moved_lowQuery: 0,
-            Times_moved_highQuery: 40,
-            If_job_sixmonthQuery: '',
-            Job_specificQuery: '',
-            Job_typeQuery: '',
-            Num_crime_lowQuery: 0,
-            Num_crime_highQuery: 40,
-            selectedPlayerDetails: null,
-            personsResults: []
-
+            personsResults: [],
+            value:"disabled",
+            xarray:[],
+            yarray:[],
+            title:''
         }
 
         this.updateSearchResults = this.updateSearchResults.bind(this)
-        this.handleYearQueryChange = this.handleYearQueryChange.bind(this)
-        this.handleAgeQueryChange = this.handleAgeQueryChange.bind(this)
-        this.handleSexQueryChange = this.handleSexQueryChange.bind(this)
-        this.handleRaceQueryChange = this.handleRaceQueryChange.bind(this)
-        this.handleHispanicQueryChange = this.handleHispanicQueryChange.bind(this)
-        this.handleTimes_movedQueryChange = this.handleTimes_movedQueryChange.bind(this)
-        this.handleIf_job_sixmonthQueryChange = this.handleIf_job_sixmonthQueryChange.bind(this)
-        this.handleJob_specificQueryChange = this.handleJob_specificQueryChange.bind(this)
-        this.handleJob_typeQueryChange = this.handleJob_typeQueryChange.bind(this)
-        this.handleNum_crimeQueryChange = this.handleNum_crimeQueryChange.bind(this)
-    }
-
-
-
-    handleTimes_movedQueryChange(value) {
-        this.setState({ Times_moved_lowQuery: value[0] })
-        this.setState({ Times_moved_highQuery: value[1] })
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
 
     updateSearchResults() {
-        relJobVictim().then(res => {
-            this.setState({ personsResults: res.results })
-        })
-        //TASK 23: call getPlayerSearch and update playerResults in state. See componentDidMount() for a hint
+ //depending on the option, graph the statistics to be presented 
+        if (this.state.value =='job'){
+            relJobVictim().then(res => {
+                this.setState({ personsResults: res.results });
+                console.log(this.state.personsResults.length)
+                var arrx = [];
+                var arry = [];
+                for( var i=0;i< this.state.personsResults.length;i++){
+                    arrx.push(this.state.personsResults[i].Year);
+                    arry.push(this.state.personsResults[i].Proportion);
+                }
+                this.setState({ xarray: arrx });
+                this.setState({ yarray: arry });
+                this.setState({ title: "Chance Of Being Victim While No Job" });
+            })
+            
+        } else if (this.state.value =='age'){
+            relOldVictim().then(res => {
+                this.setState({ personsResults: res.results });
+                console.log(this.state.personsResults.length)
+                var arrx = [];
+                var arry = [];
+                for( var i=0;i< this.state.personsResults.length;i++){
+                    arrx.push(this.state.personsResults[i].Year);
+                    arry.push(this.state.personsResults[i].Proportion);
+                }
+                this.setState({ xarray: arrx });
+                this.setState({ yarray: arry });
+                this.setState({ title: "Chance Of Being Victim For Being Elderly (>=65years)" });
+            })
+
+        } else if (this.state.value =='race'){
+            relRaceVictim().then(res => {
+                this.setState({ personsResults: res.results });
+                console.log(this.state.personsResults.length)
+                var arrx = [];
+                var arry = [];
+                for( var i=0;i< this.state.personsResults.length;i++){
+                    arrx.push(this.state.personsResults[i].Year);
+                    arry.push(this.state.personsResults[i].Proportion);
+                }
+                this.setState({ xarray: arrx });
+                this.setState({ yarray: arry });
+                this.setState({ title: "Chance Of Being Victim For Being Hispanic" });
+            })
+        }
+        
+     
     }
 
     componentDidMount() {
-        relJobVictim().then(res => {
-            this.setState({ personsResults: res.results })
-        })
+        //begin with no graph
+        this.setState({personsResults: [],arrx:[],arry:[]})
+    }
+    handleChange(event) {
+        this.setState({value: event.target.value})
     }
 
+    handleSubmit(event) {
+        //handles the submission
+        event.preventDefault();
+        this.updateSearchResults();
+    }
     render() {
         return (
 
             <div>
 
                 <MenuBar />
-                <Select defaultValue="disabled" style={{ width: 120 }} onChange={handleChange}>
-                    <Option value="race">Race</Option>
-                    <Option value="sex">Sex</Option>
-                    <Option value="job">Job</Option>
-                    <Option value="disabled" disabled>
-                        Disabled
-                    </Option>
-                    <Option value="Yiminghe">yiminghe</Option>
-                </Select>
+                <div style={{ width: '80vw', margin: '0 auto', marginTop: '8vh' }}>
+                <Row>
+                <Form  onSubmit={this.handleSubmit}>
+                        <h4>Pick your inquiry: </h4>
+                        <Col span={12}> <select type="primary" defaultValue ="disabled" value={this.state.value} onChange={this.handleChange}>
+                            <option value="race">Hispanic</option>
+                            <option value="sex">Sex</option>
+                            <option value="job">Job</option>
+                            <option value="disabled" disabled> default</option>
+                        </select></Col>
+                        <Col span={12} style={{ marginTop: '2vh' }}> <Input type="submit" value="Submit" /></Col>
+                </Form>
+                
+                </Row>
+                <Plot
+                data={[ {
+                    x:this.state.xarray,
+                    y:this.state.yarray,
+                    type:"scatter"
+                }]}
+                layout={ {width: 700, height: 400, title: this.state.title, yaxis: {automargin: true} }}
+                />
+                        
+                    
+                </div>
+                
 
 
             </div>
         )
     }
 }
-
 
 export default HcrimePage
