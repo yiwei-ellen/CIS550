@@ -73,6 +73,16 @@ const getVisualization2 = async () => {
     return res.json()
 }
 
+const getVisualization4 = async () => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/most_criminal_month`)
+    return res.json()
+}
+
+const getVisualization5 = async () => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/vis5`)
+    return res.json()
+}
+
 export {
     // getAllHouseholds,
     getHouseholdSearch,
@@ -80,5 +90,7 @@ export {
     getVisualization1,
     getVisualization2,
     relJobVictim,
-    relRaceVictim
+    relRaceVictim,
+    getVisualization4,
+    getVisualization5
 }

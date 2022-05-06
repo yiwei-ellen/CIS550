@@ -29,6 +29,8 @@ import {
 
 import { getVisualization1 } from '../fetcher'
 import { getVisualization2 } from '../fetcher'
+import { getVisualization4 } from '../fetcher'
+import { getVisualization5 } from '../fetcher'
 import { relJobVictim } from '../fetcher'
 
 
@@ -44,7 +46,9 @@ class VisualizationPage extends React.Component {
             useCanvas : false,
             visualization1Results: [],
             visualization2Results: [],
-            visualization3Results: []
+            visualization3Results: [],
+            visualization4Results: [],
+            visualization5Results: []
 
         }
 
@@ -59,6 +63,12 @@ class VisualizationPage extends React.Component {
         })
         relJobVictim().then(res => {
             this.setState({ visualization3Results: res.results })
+        })
+        getVisualization4().then(res => {
+            this.setState({ visualization4Results: res.results })
+        })
+        getVisualization5().then(res => {
+            this.setState({ visualization5Results: res.results })
         })
         
     }
@@ -165,6 +175,59 @@ class VisualizationPage extends React.Component {
             },
         ];
 
+
+        var crimeNums = [];
+        var month4 = [];
+        var year4 = [];
+
+        for (var i = 0; i < this.state.visualization4Results.length; i++) {
+            var item = this.state.visualization4Results[i];
+            crimeNums.push(item.max_crime);
+            month4.push(monthNames[item.Month - 1]);
+            year4.push(item.YEAR);
+        }
+
+        const headers2 = [["<b> Month </b>"], ["<b>  Year </b>"], ["<b>  Crimes in Month </b>"]];
+        const data2 = [
+            {
+            type: "table",
+            header: {
+                values: headers2,
+                align: "center",
+            },
+            cells: {
+                values: [month4, year4, crimeNums],
+                align: "center",
+            },
+            },
+        ];
+        var dates = [];
+        var polInv = [];
+        var polNotInv = [];
+        
+        for (var i = 0; i < this.state.visualization5Results.length; i++) {
+            var item = this.state.visualization5Results[i];
+            dates.push(new Date(item.Year, item.Month, 1));
+            polInv.push(item.police_involved);
+            polNotInv.push(item.police_not_involved);
+        }
+        console.log([dates, polInv, polNotInv]);
+
+        var trace6 = {
+            x:dates,
+            y: polInv,
+            name: 'Police Involved',
+            type: 'bar'
+        };
+
+        var trace7 = {
+            x: dates,
+            y: polNotInv,
+            name: 'Police Not Involved',
+            type: 'bar'
+        };
+
+
         return (
             <div>
                 <MenuBar/>
@@ -186,6 +249,18 @@ class VisualizationPage extends React.Component {
                 <Plot
                     data={data}
                     layout={ {width: 1000, height: 600, title: 'Month Where Specific Crimes are Committed Most'} } />
+                </div>
+                <div>
+                <Plot
+                    data={data2}
+                    layout={ {width: 1000, height: 600, title: 'Months per Year with Most Crimes'} } />
+                </div>
+                <div>
+                    <Plot
+                        data={[ trace6, trace7
+                        ]}
+                        layout={ {width: 1200, height: 600, title: 'Police Involvation by Time', barmode: "stack", yaxis: {automargin: true} }}
+                    />
                 </div>
           </div>
         )

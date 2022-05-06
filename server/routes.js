@@ -373,11 +373,82 @@ async function relRaceVictim (req,res){
         });
 }
 
+async function mostCriminalMonth (req,res){
+    console.log("function called");
+    connection.query(`WITH Crime AS (
+        SELECT Month, YEAR, COUNT(*) AS crime_num
+        FROM Incident
+        GROUP BY Month, YEAR
+        ), MaxCrime AS (
+        SELECT YEAR, MAX(crime_num) AS max_crime
+        FROM Crime
+        GROUP BY YEAR
+        )
+    SELECT Month, m.YEAR AS YEAR, max_crime
+    FROM MaxCrime m JOIN Crime c ON m.YEAR = c.YEAR AND m.max_crime = c.crime_num
+    ORDER BY YEAR DESC;
+        `,function(error, results,fields){
+            if(error){
+                console.log(error)
+                res.json({error:error});
+            } else if (results){
+                //console.log(results)
+                if(results.length ==0){
+                    res.json({results:[]});
+                } else {
+                    ans = []
+                    ans=JSON.parse(JSON.stringify(results))
+                    console.log(ans)
+                    res.json({results:ans});
+                }    
+            }
+        });
+}
 async function relOldVictim (req,res){
     console.log("function called");
     connection.query(`select Year, COUNT(CASE WHEN Age>=65 THEN 1 END)/count(*) as Proportion
     from Person P
     group by P.Year
+        `,function(error, results,fields){
+            if(error){
+                console.log(error)
+                res.json({error:error});
+            } else if (results){
+                console.log("old victim database called, results: ");
+                //console.log(results)
+                if(results.length ==0){
+                    res.json({results:[]});
+                } else {
+                    ans = []
+                    ans=JSON.parse(JSON.stringify(results))
+                    console.log(ans)
+                    res.json({results:ans});
+                }    
+            }
+        });
+}
+
+async function polInvolved (req,res){
+    connection.query(`WITH Inci AS (
+        SELECT Hid, Victim_id, Month, YEAR, police_involve
+        FROM Incident
+        WHERE YEAR < 2019
+        ), House AS (
+        SELECT Hid, Income
+        FROM Household
+        ), Pers AS (
+        SELECT Pid, Age
+        FROM Person
+        WHERE Age > 15
+        )
+    SELECT Month, i.YEAR AS Year, Income,
+               COUNT(*) AS count,
+               COUNT(CASE WHEN police_involve  = 1 THEN 1 END) AS police_involved,
+               COUNT(CASE WHEN police_involve  = 2 THEN 1 END) AS police_not_involved
+        FROM Inci i JOIN House h JOIN Pers p ON i.Hid = h.Hid AND i.Victim_id = p.Pid
+        GROUP BY Month, i.YEAR, Income
+        Having police_involved / count > 0.05
+        ORDER BY YEAR DESC, Month ASC
         `,function(error, results,fields){
             if(error){
                 console.log(error)
@@ -407,6 +478,8 @@ module.exports = {
     relJobVictim,
     relRaceVictim,
     relOldVictim,
+    mostCriminalMonth,
+    polInvolved,
 
 }
 
