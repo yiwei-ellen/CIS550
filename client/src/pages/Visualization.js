@@ -187,7 +187,7 @@ class VisualizationPage extends React.Component {
             year4.push(item.YEAR);
         }
 
-        const headers2 = [["<b> Month </b>"], ["<b>  Year </b>"], ["<b>  Crimes in Month </b>"]];
+        const headers2 = [["<b> Year </b>"], ["<b>  Month </b>"], ["<b>  Crimes in Month </b>"]];
         const data2 = [
             {
             type: "table",
@@ -196,22 +196,19 @@ class VisualizationPage extends React.Component {
                 align: "center",
             },
             cells: {
-                values: [month4, year4, crimeNums],
+                values: [year4, month4, crimeNums],
                 align: "center",
             },
             },
         ];
         var dates = [];
         var polInv = [];
-        var polNotInv = [];
         
         for (var i = 0; i < this.state.visualization5Results.length; i++) {
             var item = this.state.visualization5Results[i];
             dates.push(new Date(item.Year, item.Month, 1));
-            polInv.push(item.police_involved);
-            polNotInv.push(item.police_not_involved);
+            polInv.push(item.police_involved / (item.police_involved + item.police_not_involved));
         }
-        console.log([dates, polInv, polNotInv]);
 
         var trace6 = {
             x:dates,
@@ -220,12 +217,12 @@ class VisualizationPage extends React.Component {
             type: 'bar'
         };
 
-        var trace7 = {
-            x: dates,
-            y: polNotInv,
-            name: 'Police Not Involved',
-            type: 'bar'
-        };
+        // var trace7 = {
+        //     x: dates,
+        //     y: polNotInv,
+        //     name: 'Police Not Involved',
+        //     type: 'bar'
+        // };
 
 
         return (
@@ -248,18 +245,18 @@ class VisualizationPage extends React.Component {
                 <div>
                 <Plot
                     data={data}
-                    layout={ {width: 1000, height: 600, title: 'Month Where Specific Crimes are Committed Most'} } />
+                    layout={ {width: 1200, height: 600, title: 'Month Where Specific Crimes are Committed Most'} } />
                 </div>
                 <div>
                 <Plot
                     data={data2}
-                    layout={ {width: 1000, height: 600, title: 'Months per Year with Most Crimes'} } />
+                    layout={ {width: 1200, height: 600, title: 'Months per Year with Most Crimes'} } />
                 </div>
                 <div>
                     <Plot
-                        data={[ trace6, trace7
+                        data={[ trace6
                         ]}
-                        layout={ {width: 1200, height: 600, title: 'Police Involvation by Time', barmode: "stack", yaxis: {automargin: true} }}
+                        layout={ {width: 1200, height: 600, title: 'Police Involvation Rate over Time', barmode: "stack", yaxis: {automargin: true} }}
                     />
                 </div>
           </div>

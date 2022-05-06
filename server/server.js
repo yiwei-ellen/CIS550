@@ -34,7 +34,9 @@ app.get('/rel_race_victim',routes.relRaceVictim)
 
 app.get('/rel_old_victim',routes.relOldVictim)
 
+app.get('/most_criminal_month',routes.mostCriminalMonth)
 
+app.get('/vis5',routes.polInvolved)
 
 
 
