@@ -80,7 +80,6 @@ class VisualizationPage extends React.Component {
         const {useCanvas} = this.state;
         const BarSeries = useCanvas ? VerticalBarSeriesCanvas : VerticalBarSeries;
         var array = [];
-        console.log(this.state.visualization1Results);
 
         var xValues = [];
         var t1 = [];
@@ -114,7 +113,7 @@ class VisualizationPage extends React.Component {
         var trace3 = {
             x:xValues,
             y: t3,
-            name: 'Do_not_know',
+            name: 'Do not know',
             type: 'bar'
         };
 
@@ -137,8 +136,7 @@ class VisualizationPage extends React.Component {
         var propTrace = {
             x: years,
             y: prop,
-            name: 'Do_not_know',
-            type: 'bar'
+            type: 'scatter'
         };
 
         const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -202,19 +200,62 @@ class VisualizationPage extends React.Component {
             },
         ];
         var dates = [];
-        var polInv = [];
+        var polInv75 = [];
+        var polInv50to75 = [];
+        var polInv20to25 = [];
+        var polInv10to13 = [];
         
         for (var i = 0; i < this.state.visualization5Results.length; i++) {
             var item = this.state.visualization5Results[i];
-            dates.push(new Date(item.Year, item.Month, 1));
-            polInv.push(item.police_involved / (item.police_involved + item.police_not_involved));
+            
+            var involvation = item.police_involved / (item.police_involved + item.police_not_involved);
+            switch(item.Income) {
+                case "$75,000 and over":
+                    dates.push(new Date(item.Year, item.Month, 1));
+                    polInv75.push(involvation);
+                    break;
+                case "$50,000 to $74,999":
+                    polInv50to75.push(involvation);
+                    break;
+                case "$20,000 to $24,999":
+                    polInv20to25.push(involvation);
+                    break;
+                case "$10,000 to $12,499":
+                    polInv10to13.push(involvation);
+                    break;
+            }
         }
 
         var trace6 = {
-            x:dates,
-            y: polInv,
-            name: 'Police Involved',
-            type: 'bar'
+            x: dates,
+            y: polInv75,
+            name: "$75,000 and over",
+            mode: 'markers',
+            type: 'scatter'
+        };
+
+        var trace7 = {
+            x: dates,
+            y: polInv50to75,
+            name: "$50,000 to $74,999",
+            mode: 'markers',
+            type: 'scatter'
+        };
+
+        var trace8 = {
+            x: dates,
+            y: polInv20to25,
+            name: "$20,000 to $24,999",
+            mode: 'markers',
+            type: 'scatter'
+        };
+
+        var trace9 = {
+            x: dates,
+            y: polInv10to13,
+            name: "$10,000 to $12,499",
+            mode: 'markers',
+            type: 'scatter'
         };
 
         // var trace7 = {
@@ -223,7 +264,6 @@ class VisualizationPage extends React.Component {
         //     name: 'Police Not Involved',
         //     type: 'bar'
         // };
-
 
         return (
             <div>
@@ -254,9 +294,9 @@ class VisualizationPage extends React.Component {
                 </div>
                 <div>
                     <Plot
-                        data={[ trace6
+                        data={[ trace6, trace7, trace8, trace9
                         ]}
-                        layout={ {width: 1200, height: 600, title: 'Police Involvation Rate over Time', barmode: "stack", yaxis: {automargin: true} }}
+                        layout={ {width: 1200, height: 600, title: 'Police Involvation Rate over Time'}}
                     />
                 </div>
           </div>
