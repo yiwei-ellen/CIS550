@@ -11,33 +11,36 @@ const app = express();
 // whitelist localhost 3000
 app.use(cors({ credentials: true, origin: ['http://localhost:3000'] }));
 
+
 // Route 1 - register as GET 
-app.get('/hello', routes.hello)
-
-// Route 2 - register as GET 
-app.get('/test', routes.test)
-
-// Route 7 - register as GET 
 app.get('/search/households', routes.search_households)
 
-// Route 8 - register as GET 
+// Route 2 - register as GET 
 app.get('/search/persons', routes.search_persons)
 
+// Route 3-6 Visualization routes
 app.get('/visualization1', routes.weaponVisualization)
 
 app.get('/visualization2', routes.monthVisualization)
 
-//Route x-x Person Crime page
+app.get('/most_criminal_month',routes.mostCriminalMonth)
+
+app.get('/vis5',routes.polInvolved)
+
+//Route 7-9 Person Crime page
 app.get('/rel_job_victim',routes.relJobVictim)
 
 app.get('/rel_race_victim',routes.relRaceVictim)
 
 app.get('/rel_old_victim',routes.relOldVictim)
 
-app.get('/most_criminal_month',routes.mostCriminalMonth)
+//Route 10-12 House Crime page
 
-app.get('/vis5',routes.polInvolved)
+app.get('/rel_income_house',routes.relIncomeHouse)
 
+app.get('/rel_race_house',routes.relRaceHouse)
+
+app.get('/rel_land_house',routes.relLandHouse)
 
 
 app.listen(config.server_port, () => {

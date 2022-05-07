@@ -15,51 +15,10 @@ const connection = mysql.createConnection({
 connection.connect();
 
 
-// ********************************************
-//            SIMPLE ROUTE EXAMPLE
-// ********************************************
-
-// Route 1 (handler)
-async function hello(req, res) {
-    // a GET request to /hello?name=Steve
-    if (req.query.name) {
-        res.send(`Hello, ${req.query.name}! Welcome to the NCVS server!`)
-    } else {
-        res.send(`Hello! Welcome to the NCVS server!`)
-    }
-}
-
-
-// ********************************************
-//                  WARM UP 
-// ********************************************
-
-// Route 2 (handler)
-async function test(req, res) {
-    const age = req.query.age? req.query.age : -1;
-    if (req.query.age && !isNaN(parseInt(req.query.age))) {
-        // This is the case where page is defined.
-        // The SQL schema has the attribute OverallRating, but modify it to match spec! 
-        // TODO: query and return results here:
-        console.log("wrong place reached");
-        connection.query(`SELECT count(Age) as Num_people_this_age  
-        FROM Person
-        WHERE Age = ${age}
-        `, function (error, results, fields) {
-            if (error) {
-                console.log(error);
-                res.json({ error: error });
-            } else if (results) {
-                res.json({ results: results });
-            }
-        });
-    }
-}
 
 // ********************************************
 //               GENERAL ROUTES
 // ********************************************
-
 
 
 
@@ -326,10 +285,10 @@ ORDER BY c.Month ASC;
 
 async function relJobVictim (req,res){
     console.log("function called");
-    connection.query(`select year as Year, COUNT(CASE WHEN If_job_sixmonth = 'No' THEN 1 END)/count(*) as Proportion
+    connection.query(`select Year, COUNT(CASE WHEN If_job_sixmonth = 'No' THEN 1 END)/count(*) as Proportion
     from Person P
-    where P.If_job_sixmonth = 'No' or P.If_job_sixmonth = 'Yes'
-    group by P.year
+    where P.If_job_sixmonth = 'No' or P.If_job_sixmonth = 'Yes' and  pid in( select Victim_id from Incident)
+    group by P.year;
         `,function(error, results,fields){
             if(error){
                 console.log(error)
@@ -351,10 +310,10 @@ async function relJobVictim (req,res){
 
 async function relRaceVictim (req,res){
     console.log("function called");
-    connection.query(`select Year, COUNT(CASE WHEN Hispanic = 'Yes' THEN 1 END)/count(*) as Proportion
+    connection.query(`select Year, COUNT(CASE WHEN Hispanic = 'Yes' THEN 1 END)/count(*)as Proportion
     from Person P
-    where P.Hispanic = 'No' or P.Hispanic = 'Yes'
-    group by P.year
+    where pid in( select Victim_id from Incident)
+    group by P.year;
         `,function(error, results,fields){
             if(error){
                 console.log(error)
@@ -409,6 +368,7 @@ async function relOldVictim (req,res){
     console.log("function called");
     connection.query(`select Year, COUNT(CASE WHEN Age>=65 THEN 1 END)/count(*) as Proportion
     from Person P
+    where pid in( select Victim_id from Incident)
     group by P.Year
         `,function(error, results,fields){
             if(error){
@@ -469,18 +429,113 @@ async function polInvolved (req,res){
         });
 }
 
+async function relRaceHouse (req,res){
+    console.log("function called");
+    connection.query(`with A as (select Head_race,sum(Num_crime_reported) as coun
+    from Household
+    where hid in (select hid from Incident) and Num_crime_reported >=1
+    group by Head_race),
+     B as (select sum(Num_crime_reported) as total from Household)
+        select A.Head_race as Race, coun/total as proportion
+        from A, B;
+        `,function(error, results,fields){
+            if(error){
+                console.log(error)
+                res.json({error:error});
+            } else if (results){
+                console.log("racehouse database called, results: ");
+                //console.log(results)
+                if(results.length ==0){
+                    res.json({results:[]});
+                } else {
+                    ans = []
+                    ans=JSON.parse(JSON.stringify(results))
+                    console.log(ans)
+                    res.json({results:ans});
+                }    
+            }
+        });
+}
+
+async function relIncomeHouse (req,res){
+    console.log("function called");
+    connection.query(`with A as (select Income,sum(Num_crime_reported) as coun
+    from Household
+    where hid in (select hid from Incident) and Num_crime_reported >=1
+    group by Income),
+    B as (select Income,count(*) as total
+    from Household
+    where hid in (select hid from Incident)
+    group by Income)
+        select A.Income as Income, A.coun/B.total as Avg_cases
+        from A join B on A.Income=B.Income
+        Order by Income ASC
+        `,function(error, results,fields){
+            if(error){
+                console.log(error)
+                res.json({error:error});
+            } else if (results){
+                console.log("racehouse database called, results: ");
+                //console.log(results)
+                if(results.length ==0){
+                    res.json({results:[]});
+                } else {
+                    ans = []
+                    ans=JSON.parse(JSON.stringify(results))
+                    console.log(ans)
+                    res.json({results:ans});
+                }    
+            }
+        });
+}
+
+async function relLandHouse (req,res){
+    console.log("function called");
+    connection.query(`with A as (select Living_quarter_2016,sum(Num_crime_reported) as coun
+    from Household
+    where hid in (select hid from Incident) and Num_crime_reported >=1
+    group by Living_quarter_2016),
+    B as (select Living_quarter_2016,count(*) as total
+    from Household
+    where hid in (select hid from Incident)
+    group by Living_quarter_2016)
+        select A.Living_quarter_2016 as Land_type, A.coun/B.total as Avg_cases
+        from A join B on A.Living_quarter_2016=B.Living_quarter_2016;    
+        `,function(error, results,fields){
+            if(error){
+                console.log(error)
+                res.json({error:error});
+            } else if (results){
+                console.log("land house database called, results: ");
+                //console.log(results)
+                if(results.length ==0){
+                    res.json({results:[]});
+                } else {
+                    ans = []
+                    ans=JSON.parse(JSON.stringify(results))
+                    console.log(ans)
+                    res.json({results:ans});
+                }    
+            }
+        });
+}
+
 module.exports = {
-    hello,
-    test,
+    //full scope search
     search_households,
     search_persons,
+    //complex queries
     weaponVisualization,
     monthVisualization,
+    mostCriminalMonth,
+    polInvolved,
+    //observations display
     relJobVictim,
     relRaceVictim,
     relOldVictim,
-    mostCriminalMonth,
-    polInvolved,
+    relRaceHouse,
+    relLandHouse,
+    relIncomeHouse
 
 }
 

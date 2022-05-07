@@ -82,6 +82,28 @@ const getVisualization5 = async () => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/vis5`)
     return res.json()
 }
+const relRaceHouse = async()=>{
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/rel_race_house`, {
+        method: 'GET',
+    })
+    return res.json()
+}
+
+const relLandHouse = async()=>{
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/rel_land_house`, {
+        method: 'GET',
+    })
+    return res.json()
+}
+
+const relIncomeHouse = async()=>{
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/rel_income_house`, {
+        method: 'GET',
+    })
+    return res.json()
+}
+
+
 
 export {
     // getAllHouseholds,
@@ -91,7 +113,11 @@ export {
     getVisualization2,
     relJobVictim,
     relRaceVictim,
+    relOldVictim,
     getVisualization4,
     getVisualization5,
-    relOldVictim
+    relLandHouse,
+    relRaceHouse,
+    relIncomeHouse
+    
 }

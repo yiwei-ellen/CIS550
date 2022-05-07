@@ -106,7 +106,7 @@ class PcrimePage extends React.Component {
                         <h4>Pick your inquiry: </h4>
                         <Col span={12}> <select type="primary" defaultValue ="disabled" value={this.state.value} onChange={this.handleChange}>
                             <option value="race">Hispanic</option>
-                            <option value="sex">Sex</option>
+                            <option value="age">Age</option>
                             <option value="job">Job</option>
                             <option value="disabled" disabled> default</option>
                         </select></Col>
@@ -120,7 +120,7 @@ class PcrimePage extends React.Component {
                     y:this.state.yarray,
                     type:"scatter"
                 }]}
-                layout={ {width: 700, height: 400, title: this.state.title, yaxis: {automargin: true} }}
+                layout={ {width: 800, height: 500, title: this.state.title, yaxis: {automargin: true} }}
                 />
                         
                     

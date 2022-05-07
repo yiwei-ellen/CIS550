@@ -83,9 +83,6 @@ class HomePage extends React.Component {
       <div>
         <MenuBar />
         <div style={{ width: '70vw', margin: '0 auto', marginTop: '5vh' }}>
-          <h1>Home</h1>
-        </div>
-        <div style={{ width: '70vw', margin: '0 auto', marginTop: '5vh' }}>
         <p>
         The NCVS contains personal crime data with details about the crime including time,
 location, victim relationship, various characteristics of the offender, and other reported details
@@ -98,10 +95,10 @@ dataset for this project’s sake.
         </p>
         </div>
         <div style={{ width: '70vw', margin: '0 auto', marginTop: '5vh' }}>
-        <Link to="/persons">
+        <Link to="/personcrime">
           <Button type="link">Person vs Crime Graphs</Button>
         </Link>
-        <Link to="/households">
+        <Link to="/householdcrime">
           <Button type="link">Household vs Crime Graphs</Button>
         </Link>
         </div>
