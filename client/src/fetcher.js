@@ -17,10 +17,10 @@ const getAllPersons = async (page, pagesize) => {
 } */
 
 //TO DO
-const getHouseholdSearch = async (Year, Land_use_OG, Land_use_2015, Living_quarter_OG, Living_quarter_2016,
+const getHouseholdSearch = async (Year_low, Year_high, Land_use_OG, Land_use_2015, Living_quarter_OG, Living_quarter_2016,
     Income, Income_2015, Num_crime_reported_low, Num_crime_reported_high, Head_race, Head_hispanic, page, pagesize) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/search/Households?Year=${Year}`+
-    `&Land_use_OG=${Land_use_OG}&Land_use_2015=${Land_use_2015}`+
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/search/Households?Year_low=${Year_low}`+
+    `&Year_high=${Year_high}&Land_use_OG=${Land_use_OG}&Land_use_2015=${Land_use_2015}`+
     `&Living_quarter_OG=${Living_quarter_OG}&Living_quarter_2016=${Living_quarter_2016}`+
     `&Income=${Income}&Income_2015=${Income_2015}`+
     `&Num_crime_reported_low=${Num_crime_reported_low}&Num_crime_reported_high=${Num_crime_reported_high}`+
@@ -31,8 +31,8 @@ const getHouseholdSearch = async (Year, Land_use_OG, Land_use_2015, Living_quart
     return res.json()
 }
 
-const getPersonsSearch = async (Year, Age_low, Age_high, Sex, Race, Hispanic, Times_moved_low, Times_moved_high, If_job_sixmonth, Job_specific, Job_type, Num_crime_low, Num_crime_high, page, pagesize) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/search/persons?Year=${Year}`+
+const getPersonsSearch = async (Year_low, Year_high, Age_low, Age_high, Sex, Race, Hispanic, Times_moved_low, Times_moved_high, If_job_sixmonth, Job_specific, Job_type, Num_crime_low, Num_crime_high, page, pagesize) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/search/persons?Year_low=${Year_low}&Year_high=${Year_high}`+
     `&Age_low=${Age_low}&Age_high=${Age_high}&Sex=${Sex}&Race=${Race}&Hispanic=${Hispanic}&Times_moved_low=${Times_moved_low}&Times_moved_high=${Times_moved_high}`+
     `&If_job_sixmonth=${If_job_sixmonth}&Job_specific=${Job_specific}&Job_type=${Job_type}`+
     `&Num_crime_low=${Num_crime_low}&Num_crime_high=${Num_crime_high}&page=${page}&pagesize=${pagesize}`, {
