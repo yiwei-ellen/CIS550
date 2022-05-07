@@ -147,7 +147,7 @@ async function search_persons(req, res) {
         connection.query(`select Pid, Year, Age, Sex, Race, Hispanic,
         Times_moved, If_job_sixmonth, Job_specific, Job_type, Num_crime
         from Person
-        where Year = ${Year} and Age >= ${Age_low} and Age <=${Age_high} and Sex like '%${Sex}%' 
+        where YEAR >= ${Year_low} and YEAR <= ${Year_high}  and Age >= ${Age_low} and Age <=${Age_high} and Sex like '%${Sex}%' 
         and Race like '%${Race}%' and Hispanic like '%${Hispanic}%'
         and Times_moved>=${Times_moved_low} and Times_moved <=${Times_moved_high} 
         and If_job_sixmonth like '%${If_job_sixmonth }%'

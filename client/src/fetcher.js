@@ -31,8 +31,8 @@ const getHouseholdSearch = async (Year_low, Year_high, Land_use_OG, Land_use_201
     return res.json()
 }
 
-const getPersonsSearch = async (Year, Age_low, Age_high, Sex, Race, Hispanic, Times_moved_low, Times_moved_high, If_job_sixmonth, Job_specific, Job_type, Num_crime_low, Num_crime_high, page, pagesize) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/search/persons?Year=${Year}`+
+const getPersonsSearch = async (Year_low, Year_high, Age_low, Age_high, Sex, Race, Hispanic, Times_moved_low, Times_moved_high, If_job_sixmonth, Job_specific, Job_type, Num_crime_low, Num_crime_high, page, pagesize) => {
+    var res = await fetch(`http://${config.server_host}:${config.server_port}/search/persons?Year_low=${Year_low}&Year_high=${Year_high}`+
     `&Age_low=${Age_low}&Age_high=${Age_high}&Sex=${Sex}&Race=${Race}&Hispanic=${Hispanic}&Times_moved_low=${Times_moved_low}&Times_moved_high=${Times_moved_high}`+
     `&If_job_sixmonth=${If_job_sixmonth}&Job_specific=${Job_specific}&Job_type=${Job_type}`+
     `&Num_crime_low=${Num_crime_low}&Num_crime_high=${Num_crime_high}&page=${page}&pagesize=${pagesize}`, {
