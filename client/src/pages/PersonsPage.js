@@ -198,76 +198,85 @@ class PersonsPage extends React.Component {
                 <MenuBar />
                 <Form style={{ width: '80vw', margin: '0 auto', marginTop: '5vh' }}>
                     <Row>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
+                        <Col space={12}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
                             <label>Year</label>
                             <FormInput placeholder="Year" value={this.state.YearQuery} onChange={this.handleYearQueryChange} />
                         </FormGroup></Col>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
+                        <Col span={8}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
                             <label>Age</label>
                             <Slider range defaultValue={[0, 90]} onChange={this.handleAgeQueryChange} />
                         </FormGroup></Col>
                         <Form>
-                            <label>Gender</label>
-                        <Col span={12}> <select type="primary" defaultValue ="Male" value={this.state.GenderQuery} onChange={this.handleSexQueryChange}>
+                        <Col span={3} >  <label>Gender</label></Col >
+                        <Col span={3}> <select type="primary" defaultValue ="Male" value={this.state.GenderQuery} onChange={this.handleSexQueryChange}>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
-                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
+                            
                         </select></Col>
                         </Form>
                     </Row>
                     <br></br>
-                    <Row>
-                        <Form >
-                            <label>Race</label>
-                        <Col span={12}> <select type="primary" defaultValue ="White only" value={this.state.RaceQuery} onChange={this.handleRaceQueryChange}>
-                            <option value="White only">White only</option>
-                            <option value="Black only">Black only</option>
-                            <option value="American Indian, Alaska native only">American Indian, Alaska native only</option>
-                            <option value="White-Black">White-Black</option>
-                            <option value="Asian only">Asian only</option>
-                            <option value="Hawaiian/Pacific Islander only">Hawaiian/Pacific Islander only</option>
-                            <option value="White-American Indian">White-American Indian</option>
-                            <option value="White-Hawaiian">White-Hawaiian</option>
-                            <option value="Black-American Indian">Black-American Indian</option>
-                            <option value="White-Asian-Hawaiian">White-Asian-Hawaiian</option>
-                            <option value="White-Asian">White-Asian</option>
-                            <option value="White-Black-American Indian">White-Black-American Indian</option>
-                            <option value="Black-Asian">Black-Asian</option>
-                            <option value="Asian-Hawaiian/Pacific Islander">Asian-Hawaiian/Pacific Islander</option>
-                            <option value="4 or 5 races">4 or 5 races</option>
-                            <option value="Black-Hawaiian/Pacific Islander">Black-Hawaiian/Pacific Islander</option>
-                            <option value="White-Black-Asian">White-Black-Asian</option>
-                            <option value="2 or 3 races">2 or 3 races</option>
-                            <option value="White-American Indian-Asian">White-American Indian-Asian</option>
-                            <option value="American Indian-Asian">American Indian-Asian</option>
-                            <Col flex={2} style={{ width: '20vw', margin: '20 auto' }}></Col>
-                        </select></Col>
-                        </Form>
-                        <Form>
+                    <Row> 
+                        
+                        <Col span={6} > 
+                        <label>Race</label>
+                            <Form style={{ width: '20vw', margin: '0 auto' }}>
+                                <select type="primary" defaultValue ="White only" value={this.state.RaceQuery} onChange={this.handleRaceQueryChange}>
+                                    <option value="White only">White only</option>
+                                    <option value="Black only">Black only</option>
+                                    <option value="American Indian, Alaska native only">American Indian, Alaska native only</option>
+                                    <option value="White-Black">White-Black</option>
+                                    <option value="Asian only">Asian only</option>
+                                    <option value="Hawaiian/Pacific Islander only">Hawaiian/Pacific Islander only</option>
+                                    <option value="White-American Indian">White-American Indian</option>
+                                    <option value="White-Hawaiian">White-Hawaiian</option>
+                                    <option value="Black-American Indian">Black-American Indian</option>
+                                    <option value="White-Asian-Hawaiian">White-Asian-Hawaiian</option>
+                                    <option value="White-Asian">White-Asian</option>
+                                    <option value="White-Black-American Indian">White-Black-American Indian</option>
+                                    <option value="Black-Asian">Black-Asian</option>
+                                    <option value="Asian-Hawaiian/Pacific Islander">Asian-Hawaiian/Pacific Islander</option>
+                                    <option value="4 or 5 races">4 or 5 races</option>
+                                    <option value="Black-Hawaiian/Pacific Islander">Black-Hawaiian/Pacific Islander</option>
+                                    <option value="White-Black-Asian">White-Black-Asian</option>
+                                    <option value="2 or 3 races">2 or 3 races</option>
+                                    <option value="White-American Indian-Asian">White-American Indian-Asian</option>
+                                    <option value="American Indian-Asian">American Indian-Asian</option>
+                                </select>
+                            </Form>
+                        </Col>
+                        
+                        <Col span={6}>
                             <label>Hispanic</label>
-                        <Col span={12}> <select type="primary" defaultValue ="No" value={this.state.HispanicQuery} onChange={this.handleHispanicQueryChange}>
-                            <option value="No">No</option>
-                            <option value="Yes">Yes</option>
-                            <option value="Residue">Residue</option>
-                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
-                        </select></Col>
+                            <Form style={{ width: '20vw', margin: '0 auto' }}>
+                                <select type="primary" defaultValue ="No" value={this.state.HispanicQuery} onChange={this.handleHispanicQueryChange}>
+                                    <option value="No">No</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="Residue">Residue</option>
+                                </select>
+                            </Form>
+                        </Col>
+                        
+                        <Col span={6}> 
+                        <label>If_job_sixmonth</label>
+                        <Form style={{ width: '20vw', margin: '0 auto' }}>
+                            <select type="primary" defaultValue ="No" value={this.state.If_job_sixmonthQuery} onChange={this.handleIf_job_sixmonthQueryChange}>
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                                <option value="Residue">Residue</option>
+                                <option value="Residue">Out of universe</option>
+                            </select>
                         </Form>
-                        <Form>
-                            <label>If_job_sixmonth</label>
-                        <Col span={12}> <select type="primary" defaultValue ="No" value={this.state.If_job_sixmonthQuery} onChange={this.handleIf_job_sixmonthQueryChange}>
-                            <option value="No">No</option>
-                            <option value="Yes">Yes</option>
-                            <option value="Residue">Residue</option>
-                            <option value="Residue">Out of universe</option>
-                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
-                        </select></Col>
-                        </Form>
+                        </Col>
+                        
                     </Row>
                     <br></br>
                     <Row>
-                        <Form>
-                            <label>Job_specific</label>
-                        <Col span={12}> <select type="primary" defaultValue ="Something Else" value={this.state.Job_specificQuery} onChange={this.handleJob_specificQueryChange}>
+                        <Form style={{ width: '20vw', margin: '0 auto' }}>
+                            
+                        <Col span={12}> 
+                        <label>Job_specific</label>
+                            <select type="primary" defaultValue ="Something Else" value={this.state.Job_specificQuery} onChange={this.handleJob_specificQueryChange}>
                             <option value="Something Else">Something Else</option>
                             <option value="Other">Other</option>
                             <option value="Elementary">Elementary</option>
@@ -292,32 +301,32 @@ class PersonsPage extends React.Component {
                             <option value="Special education facility">Special education facility</option>
                             <option value="Residue">Residue</option>
                             <option value="Out of universe">Out of universe</option>
-                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
                         </select></Col>
                         </Form>
-                        <Form>
+                        <Col span={8}>
                             <label>Job_type</label>
-                        <Col span={12}> <select type="primary" defaultValue ="A private company, business, or individual for wages" value={this.state.Job_typeQuery} onChange={this.handleJob_typeQueryChange}>
-                            <option value="A private company, business, or individual for wages">A private company, business, or individual for wages</option>
-                            <option value="Yourself, (Self-employed) in your own business, professional practice, or farm">Yourself, (Self-employed) in your own business, professional practice, or farm</option>
-                            <option value="The Federal government">The Federal government</option>
-                            <option value="A State, county, or local government">A State, county, or local government</option>
-                            <option value="Residue">Residue</option>
-                            <option value="Out of universe">Out of universe</option>
-                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
-                        </select></Col>
-                        </Form>
+                            <Form>
+                                <select type="primary" defaultValue ="A private company, business, or individual for wages" value={this.state.Job_typeQuery} onChange={this.handleJob_typeQueryChange}>
+                                    <option value="A private company, business, or individual for wages">A private company, business, or individual for wages</option>
+                                    <option value="Yourself, (Self-employed) in your own business, professional practice, or farm">Yourself, (Self-employed) in your own business, professional practice, or farm</option>
+                                    <option value="The Federal government">The Federal government</option>
+                                    <option value="A State, county, or local government">A State, county, or local government</option>
+                                    <option value="Residue">Residue</option>
+                                    <option value="Out of universe">Out of universe</option>
+                                </select>
+                            </Form>
+                        </Col>
                     </Row>
                     <br></br>
                     <Row>
                         <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
                             <label>Times_moved</label>
-                            <Slider range defaultValue={[0, 50]} onChange={this.handleTimes_movedQueryChange} />
+                            <Slider range defaultValue={[0, 10]} max ={20} onChange={this.handleTimes_movedQueryChange} />
 
                         </FormGroup></Col>
                         <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
                             <label>Num_crime</label>
-                            <Slider range defaultValue={[0, 50]} onChange={this.handleNum_crimeQueryChange} />
+                            <Slider range defaultValue={[0, 10]} max ={10}onChange={this.handleNum_crimeQueryChange} />
 
                         </FormGroup></Col>
                         {/* TASK 27: Create a column with a label and slider in a FormGroup item for filtering by Potential. See the column above for reference and use the onChange method (handlePotentialChange)  */}
