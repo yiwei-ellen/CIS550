@@ -198,7 +198,7 @@ class PersonsPage extends React.Component {
                 <MenuBar />
                 <Form style={{ width: '80vw', margin: '0 auto', marginTop: '5vh' }}>
                     <Row>
-                        <Col space={12}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
+                        <Col space={8}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
                             <label>Year</label>
                             <FormInput placeholder="Year" value={this.state.YearQuery} onChange={this.handleYearQueryChange} />
                         </FormGroup></Col>
@@ -207,8 +207,7 @@ class PersonsPage extends React.Component {
                             <Slider range defaultValue={[0, 90]} onChange={this.handleAgeQueryChange} />
                         </FormGroup></Col>
                         <Form>
-                        <Col span={3} >  <label>Gender</label></Col >
-                        <Col span={3}> <select type="primary" defaultValue ="Male" value={this.state.GenderQuery} onChange={this.handleSexQueryChange}>
+                        <Col span={8}><label>Gender</label> <select type="primary" defaultValue ="Male" value={this.state.GenderQuery} onChange={this.handleSexQueryChange}>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             
@@ -218,9 +217,9 @@ class PersonsPage extends React.Component {
                     <br></br>
                     <Row> 
                         
-                        <Col span={6} > 
+                        <Col span={8} > 
                         <label>Race</label>
-                            <Form style={{ width: '20vw', margin: '0 auto' }}>
+                            <Form style={{ width: '20vw' }}>
                                 <select type="primary" defaultValue ="White only" value={this.state.RaceQuery} onChange={this.handleRaceQueryChange}>
                                     <option value="White only">White only</option>
                                     <option value="Black only">Black only</option>
@@ -272,9 +271,10 @@ class PersonsPage extends React.Component {
                     </Row>
                     <br></br>
                     <Row>
-                        <Form style={{ width: '20vw', margin: '0 auto' }}>
+                        
                             
-                        <Col span={12}> 
+                        <Col span={8}> 
+                        <Form style={{ width: '20vw' }}>
                         <label>Job_specific</label>
                             <select type="primary" defaultValue ="Something Else" value={this.state.Job_specificQuery} onChange={this.handleJob_specificQueryChange}>
                             <option value="Something Else">Something Else</option>
@@ -301,8 +301,8 @@ class PersonsPage extends React.Component {
                             <option value="Special education facility">Special education facility</option>
                             <option value="Residue">Residue</option>
                             <option value="Out of universe">Out of universe</option>
-                        </select></Col>
-                        </Form>
+                        </select>
+                        </Form></Col>
                         <Col span={8}>
                             <label>Job_type</label>
                             <Form>
@@ -319,13 +319,15 @@ class PersonsPage extends React.Component {
                     </Row>
                     <br></br>
                     <Row>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
-                            <label>Times_moved</label>
+                        <Col span={8}><label>Times_moved</label>
+                            <FormGroup style={{ width: '20vw' }}>
+                            
                             <Slider range defaultValue={[0, 10]} max ={20} onChange={this.handleTimes_movedQueryChange} />
 
                         </FormGroup></Col>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
+                        <Col span={8}>
                             <label>Num_crime</label>
+                            <FormGroup style={{ width: '20vw'}}>
                             <Slider range defaultValue={[0, 10]} max ={10}onChange={this.handleNum_crimeQueryChange} />
 
                         </FormGroup></Col>

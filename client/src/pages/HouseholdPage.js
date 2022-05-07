@@ -172,8 +172,6 @@ class HouseholdPage extends React.Component {
     }
 
     componentDidMount() {
-
-
         getHouseholdSearch(this.state.YearQuery, this.state.Land_use_OGQuery, this.state.Land_use_2015Query,
             this.state.Living_quarter_OGQuery, this.Living_quarter_2016Query, this.state.IncomeQuery,
             this.state.Income_2015Query, this.state.Num_crime_reported_lowQuery, this.state.Num_crime_reported_highQuery,
@@ -181,9 +179,7 @@ class HouseholdPage extends React.Component {
             1, 10).then(res => {
             this.setState({ householdResults: res.results })
         })
-        console.log(this.state.householdResults)
-
-        
+        console.log(this.state.householdResults)        
     }
 
     render() {
@@ -193,35 +189,30 @@ class HouseholdPage extends React.Component {
                 <MenuBar />
                 <Form style={{ width: '80vw', margin: '0 auto', marginTop: '5vh' }}>
                     <Row>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
+                        <Col span={8}>
                             <label>Year</label>
+                            <FormGroup style={{ width: '15vw' }}>
+                            
                             <FormInput placeholder="Year" value={this.state.YearQuery} onChange={this.handleYearQueryChange} />
                         </FormGroup></Col>
+                        
+                         
+                        <Col span={8}>
+                        <label>Land_use_OG</label>
                         <Form >
-                            <label>Land_use_OG</label>
-                        <Col span={12}> <select type="primary" defaultValue ="Urban" value={this.state.Land_use_OGQuery} onChange={this.handleLand_use_OGQueryChange}>
+                             <select type="primary" defaultValue ="Urban" value={this.state.Land_use_OGQuery} onChange={this.handleLand_use_OGQueryChange}>
                             <option value="Urban">Urban</option>
                             <option value="Rural">Rural</option>
                             <option value="Residue">Residue</option>
                             <option value="Out of universe">Out of universe</option>
-                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
-                        </select></Col>
-                        </Form>
+                            
+                        </select>
+                        </Form></Col>
+                        <br></br>
+                        <Col span={8}> 
+                        <label>Living_quarter_OG</label>
                         <Form >
-                            <label>Land_use_2015</label>
-                        <Col span={12}> <select type="primary" defaultValue ="Urban" value={this.state.Land_use_2015Query} onChange={this.handleLand_use_2015QueryChange}>
-                            <option value="Urban">Urban</option>
-                            <option value="Rural">Rural</option>
-                            <option value="Out of universe">Out of universe</option>
-                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
-                        </select></Col>
-                        </Form>
-                    </Row>
-                    <br></br>
-                    <Row>
-                        <Form >
-                            <label>Living_quarter_OG</label>
-                        <Col span={12}> <select type="primary" defaultValue ="House, apartment, flat" value={this.state.Living_quarter_OGQuery} onChange={this.handleLiving_quarter_OGQueryChange}>
+                        <select type="primary" defaultValue ="House, apartment, flat" value={this.state.Living_quarter_OGQuery} onChange={this.handleLiving_quarter_OGQueryChange}>
                             <option value="House, apartment, flat">House, apartment, flat</option>
                             <option value="Mobile home or trailer with no permanent room added">Mobile home or trailer with no permanent room added</option>
                             <option value="Mobile home or trailer with one or more permanent rooms added">Mobile home or trailer with one or more permanent rooms added</option>
@@ -237,12 +228,28 @@ class HouseholdPage extends React.Component {
                             <option value="Invalid">Invalid</option>
                             <option value="Residue">Residue</option>
                             <option value="Out of universe">Out of universe</option>
-                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
-                        </select></Col>
-                        </Form>
+                        </select>
+                        </Form></Col>
+                        
+                    </Row>
+                    <br></br>
+                    <Row>
+                        
+                    <Col span={8}>
+                        <label>Land_use_2015</label>
                         <Form >
-                            <label>Income</label>
-                        <Col span={12}> <select type="primary" defaultValue ="Less than $5,000" value={this.state.IncomeQuery} onChange={this.handleIncomeQueryChange}>
+                             <select type="primary" defaultValue ="Urban" value={this.state.Land_use_2015Query} onChange={this.handleLand_use_2015QueryChange}>
+                            <option value="Urban">Urban</option>
+                            <option value="Rural">Rural</option>
+                            <option value="Out of universe">Out of universe</option>
+                        </select>
+                        </Form></Col>
+
+                        
+                        <Col span={8}>
+                        <label>Income</label>
+                        <Form >
+                             <select type="primary" defaultValue ="Less than $5,000" value={this.state.IncomeQuery} onChange={this.handleIncomeQueryChange}>
                             <option value="Less than $5,000">Less than $5,000</option>
                             <option value="$5,000 to $7,499">$5,000 to $7,499</option>
                             <option value="$7,500 to $9,999">$7,500 to $9,999</option>
@@ -263,16 +270,12 @@ class HouseholdPage extends React.Component {
                             <option value="$200,000 or more">$200,000 or more</option>
                             <option value="Residue">Residue</option>
                             <option value="Out of universe">Out of universe</option>
-                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
-                        </select></Col>
-                        </Form>
-
-                    </Row>
-                    <br></br>
-                    <Row>
-                    <Form >
-                            <label>Income_2015</label>
-                        <Col span={12}> <select type="primary" defaultValue ="Less than $5,000" value={this.state.Income_2015Query} onChange={this.handleIncome_2015QueryChange}>
+                        </select>
+                        </Form></Col>
+                        <Col span={8}>
+                    <label>Income_2015</label>
+                    <Form > 
+                         <select type="primary" defaultValue ="Less than $5,000" value={this.state.Income_2015Query} onChange={this.handleIncome_2015QueryChange}>
                             <option value="Less than $5,000">Less than $5,000</option>
                             <option value="$5,000 to $7,499">$5,000 to $7,499</option>
                             <option value="$7,500 to $9,999">$7,500 to $9,999</option>
@@ -293,12 +296,18 @@ class HouseholdPage extends React.Component {
                             <option value="$200,000 or more">$200,000 or more</option>
                             <option value="Blank">Blank</option>
                             <option value="Invalid until 2015 Q1">Invalid until 2015 Q1</option>
-                            <Col flex={2} style={{ width: '20vw', margin: '0 auto' }}></Col>
-                        </select></Col>
-                        </Form>
+                           
+                        </select>
+                        </Form></Col>
+                    </Row>
+                    <br></br>
+                    <Row>
+                    
+                        <Col span={8}>
+                        <label>Head_Race</label>
                         <Form >
-                            <label>Head_Race</label>
-                        <Col span={12}> <select type="primary" defaultValue ="White only" value={this.state.Head_raceQuery} onChange={this.handleHead_raceQueryChange}>
+                          
+                        <select type="primary" defaultValue ="White only" value={this.state.Head_raceQuery} onChange={this.handleHead_raceQueryChange}>
                             <option value="White only">White only</option>
                             <option value="Black only">Black only</option>
                             <option value="American Indian, Alaska native only">American Indian, Alaska native only</option>
@@ -317,19 +326,21 @@ class HouseholdPage extends React.Component {
                             <option value="White-Black-Asian">White-Black-Asian</option>
                             <option value="2 or 3 races">2 or 3 races</option>
                             <option value="Out of universe">Out of universe</option>
-                            <Col flex={2} style={{ width: '20vw', margin: '20 auto' }}></Col>
-                        </select></Col>
-                        </Form>
-                    </Row>
-                    <br></br>
-                    <Row>
-                        <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
-                            <label>Num_crime_reported</label>
+                        </select>
+                        </Form></Col>
+                        <Col span={8}>
+                        <label>Num_crime_reported</label>
+                            <FormGroup style={{ width: '20vw'}}>
+                            
                             <Slider range defaultValue={[0, 50]} onChange={this.handleNum_crime_reportedQueryChange} />
 
                         </FormGroup></Col>
-                        {/* TASK 27: Create a column with a label and slider in a FormGroup item for filtering by Potential. See the column above for reference and use the onChange method (handlePotentialChange)  */}
-                        <Col flex={2}><FormGroup style={{ width: '10vw' }}>
+                    </Row>
+                    <br></br>
+                    <Row>
+                        
+                       
+                        <Col span={12}><FormGroup style={{ width: '20vw' }}>
                             <Button style={{ marginTop: '4vh' }} onClick={this.updateSearchResults}>Search</Button>
                         </FormGroup></Col>
 
