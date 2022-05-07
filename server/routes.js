@@ -39,11 +39,10 @@ async function search_households(req, res) {
     var Num_crime_reported_high = req.query.Num_crime_reported_high? req.query.Num_crime_reported_high :'';
     var Head_race = req.query.Head_race? req.query.Head_race :'';
     var Head_hispanic = req.query.Head_hispanic? req.query.Head_hispanic :'';
-    var page = req.query.page? req.query.pagesize:1;
+    var page = req.query.page;
     var pagesize = req.query.pagesize ? req.query.pagesize:10;
-    
     if (req.query.page && !isNaN(parseInt(req.query.page))) {
-        connection.query(`select Hid, YEAR, Land_use_OG, Land_use_2015,
+        connection.query(`select Hid, Year, Land_use_OG, Land_use_2015,
         Living_quarter_OG, Living_quarter_2016, Income, Income_2015,
         Num_crime_reported, Head_race, Head_hispanic
         from Household
@@ -53,7 +52,8 @@ async function search_households(req, res) {
         and Num_crime_reported >= ${Num_crime_reported_low} and Num_crime_reported <=${Num_crime_reported_high}
         and Head_race LIKE '%${Head_race}%' and Head_hispanic LIKE '%${Head_hispanic}%'
         order by Hid
-        limit ${(parseInt(page)-1)*pagesize},${pagesize}
+        LIMIT ${pagesize} OFFSET ${req.query.page*pagesize-pagesize}
+        
         `,function(error, results,fields){
             if(error){
                 res.json({error:error});
@@ -66,7 +66,7 @@ async function search_households(req, res) {
             }
         });
     } else {
-        connection.query(`select Hid, YEAR, Land_use_OG, Land_use_2015,
+        connection.query(`select Hid, Year, Land_use_OG, Land_use_2015,
         Living_quarter_OG, Living_quarter_2016, Income, Income_2015,
         Num_crime_reported, Head_race, Head_hispanic
         from Household
@@ -76,7 +76,6 @@ async function search_households(req, res) {
         and Num_crime_reported >= ${Num_crime_reported_low} and Num_crime_reported <=${Num_crime_reported_high}
         and Head_race LIKE '%${Head_race}%' and Head_hispanic LIKE '%%'
         order by Hid
-        limit ${(parseInt(page)-1)*pagesize},${pagesize}
         `,function(error, results,fields){
             if(error){
                 console.log(error)
@@ -112,7 +111,6 @@ async function search_persons(req, res) {
     var Num_crime_low = req.query.Num_crime_low? req.query.Num_crime_low :'';
     var Num_crime_high = req.query.Num_crime_high? req.query.Num_crime_high :'';
 
-    var page = req.query.page ? req.query.page:1;
     var pagesize = req.query.pagesize ? req.query.pagesize:10;
 
     // console.log('sb')
@@ -128,8 +126,8 @@ async function search_persons(req, res) {
         and Job_specific like '%${Job_specific}%'
         and Job_type like '%${Job_type}%'
         and Num_crime >= ${Num_crime_low} and Num_crime<=${Num_crime_high}
-        order by Year
-        limit ${(parseInt(page)-1)*pagesize},${pagesize}
+        order by Pid
+        LIMIT ${pagesize} OFFSET ${req.query.page*pagesize-pagesize}
         `,function(error, results,fields){
             if(error){
                 console.log(error)
@@ -154,8 +152,7 @@ async function search_persons(req, res) {
         and Job_specific like '%${Job_specific}%'
         and Job_type like '%${Job_type}%'
         and Num_crime >= ${Num_crime_low} and Num_crime<=${Num_crime_high}
-        order by Year
-        limit ${(parseInt(page)-1)*pagesize},${pagesize}
+        order by Pid
         `,function(error, results,fields){
             if(error){
                 console.log(error)

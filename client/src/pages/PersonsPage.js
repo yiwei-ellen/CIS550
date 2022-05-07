@@ -25,7 +25,7 @@ const personColumns = [
         title: 'Year',
         dataIndex: 'Year',
         key: 'Year',
-        sorter: (a, b) => a.Year.localeCompare(b.Year)
+        sorter: (a, b) => a.Year-b.Year
     },
     {
         title: 'Age',
@@ -37,7 +37,6 @@ const personColumns = [
         title: 'Sex',
         dataIndex: 'Sex',
         key: 'Sex',
-        sorter: (a, b) => a.Sex.localeCompare(b.Sex)
     },
     {
         title: 'Race',
@@ -49,7 +48,6 @@ const personColumns = [
         title: 'Hispanic',
         dataIndex: 'Hispanic',
         key: 'Hispanic',
-        sorter: (a, b) => a.Hispanic.localeCompare(b.Hispanic)
     },
     {
         title: 'Times_moved',

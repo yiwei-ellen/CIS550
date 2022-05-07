@@ -22,7 +22,7 @@ const householdColumns = [
         title: 'Year',
         dataIndex: 'Year',
         key: 'Year',
-        sorter: (a, b) => a.Year.localeCompare(b.Year)
+        sorter: (a, b) => a.Year-b.Year
     },
     {
         title: 'Land_use_OG',
@@ -194,9 +194,8 @@ class HouseholdPage extends React.Component {
                 <Form style={{ width: '80vw', margin: '0 auto', marginTop: '5vh' }}>
                     <Row>
                         <Col span={8}>
-                            <label>Year</label>
-
-                            <Slider min = {2003} max = {2017} range defaultValue={[2003, 2017]} onChange={this.handleYearQueryChange} />
+                            <label>Year</label><FormGroup style={{ width: '20vw' }}>
+                            <Slider min = {2003} max = {2017} range defaultValue={[2003, 2017]} onChange={this.handleYearQueryChange} /></FormGroup>
                         </Col>
                         
                          
@@ -338,21 +337,22 @@ class HouseholdPage extends React.Component {
                             <Slider range defaultValue={[0, 50]} onChange={this.handleNum_crime_reportedQueryChange} />
 
                         </FormGroup></Col>
+                        <Col span={8}><FormGroup style={{ width: '20vw' }}>
+                            <Button style={{ marginTop: '4vh' }} onClick={this.updateSearchResults}>Search</Button>
+                        </FormGroup></Col>
                     </Row>
                     <br></br>
                     <Row>
                         
                        
-                        <Col span={12}><FormGroup style={{ width: '20vw' }}>
-                            <Button style={{ marginTop: '4vh' }} onClick={this.updateSearchResults}>Search</Button>
-                        </FormGroup></Col>
+                        
 
                     </Row>
                 </Form>
 
                 <Divider />
                 {/* TASK 24: Copy in the players table from the Home page, but use the following style tag: style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }} - this should be one line of code! */
-                <Table dataSource={this.state.householdResults} columns={householdColumns} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 5, showQuickJumper:true }} style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }}/>}
+                <Table dataSource={this.state.householdResults} columns={householdColumns} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 5, showQuickJumper:true }} style={{ width: '70vw', margin: '2vw', marginTop: '2vh' }}/>}
                 <Divider />
 
 
