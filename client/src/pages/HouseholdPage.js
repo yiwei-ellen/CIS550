@@ -86,7 +86,8 @@ class HouseholdPage extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            YearQuery: 2015,
+            Year_lowQuery: 2003,
+            Year_highQuery: 2017,
             Land_use_OGQuery: "",
             Land_use_2015Query: "",
             Living_quarter_OGQuery: "",
@@ -118,8 +119,9 @@ class HouseholdPage extends React.Component {
 
 
 
-    handleYearQueryChange(event) {
-        this.setState({ YearQuery: event.target.value })
+    handleYearQueryChange(value) {
+        this.setState({ Year_lowQuery: value[0] })
+        this.setState({ Year_highQuery: value[1] })
     }
 
     handleLand_use_OGQueryChange(event) {
@@ -162,7 +164,7 @@ class HouseholdPage extends React.Component {
 
     updateSearchResults() {
         //TASK 11: call getyHouseholdSearch and update matchesResults in state. See componentDidMount() for a hint
-        getHouseholdSearch(this.state.YearQuery, this.state.Land_use_OGQuery, this.state.Land_use_2015Query,
+        getHouseholdSearch(this.state.Year_lowQuery, this.state.Year_highQuery, this.state.Land_use_OGQuery, this.state.Land_use_2015Query,
             this.state.Living_quarter_OGQuery, this.Living_quarter_2016Query, this.state.IncomeQuery,
             this.state.Income_2015Query, this.state.Num_crime_reported_lowQuery, this.state.Num_crime_reported_highQuery,
             this.state.Head_raceQuery, this.state.Head_hispanicQuery,
@@ -174,7 +176,7 @@ class HouseholdPage extends React.Component {
     componentDidMount() {
 
 
-        getHouseholdSearch(this.state.YearQuery, this.state.Land_use_OGQuery, this.state.Land_use_2015Query,
+        getHouseholdSearch(this.state.Year_lowQuery, this.state.Year_highQuery, this.state.Land_use_OGQuery, this.state.Land_use_2015Query,
             this.state.Living_quarter_OGQuery, this.Living_quarter_2016Query, this.state.IncomeQuery,
             this.state.Income_2015Query, this.state.Num_crime_reported_lowQuery, this.state.Num_crime_reported_highQuery,
             this.state.Head_raceQuery, this.state.Head_hispanicQuery,
@@ -195,7 +197,7 @@ class HouseholdPage extends React.Component {
                     <Row>
                         <Col flex={2}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
                             <label>Year</label>
-                            <FormInput placeholder="Year" value={this.state.YearQuery} onChange={this.handleYearQueryChange} />
+                            <Slider min = {2003} max = {2017} range defaultValue={[2003, 2017]} onChange={this.handleYearQueryChange} />
                         </FormGroup></Col>
                         <Form >
                             <label>Land_use_OG</label>
