@@ -1,37 +1,12 @@
 import React from 'react';
 import Plot from 'react-plotly.js';
-import { Form, FormInput, FormGroup, Button, Card, CardBody, CardTitle, Progress } from "shards-react";
-
-
-import {
-    FlexibleXYPlot,
-    XAxis,
-    YAxis,
-    VerticalGridLines,
-    HorizontalGridLines,
-    VerticalBarSeries,
-    VerticalBarSeriesCanvas,
-    DiscreteColorLegend
-  } from 'react-vis';
-
 import { format } from 'd3-format';
 import MenuBar from '../components/MenuBar';
-
-
 import {
     Table,
-    Pagination,
-    Row,
-    Col,
-    Divider,
-
 } from 'antd'
 
-import { getVisualization1 } from '../fetcher'
-import { getVisualization2 } from '../fetcher'
-import { getVisualization4 } from '../fetcher'
-import { getVisualization5 } from '../fetcher'
-import { relJobVictim } from '../fetcher'
+import { getVisualization1,getVisualization2,getVisualization4,relJobVictim  } from '../fetcher'
 
 
 const { Column, ColumnGroup } = Table;
@@ -55,6 +30,7 @@ class VisualizationPage extends React.Component {
     }
 
     componentDidMount() {
+        //set initial states
         getVisualization1().then(res => {
             this.setState({ visualization1Results: res.results })
         })
@@ -78,9 +54,6 @@ class VisualizationPage extends React.Component {
         
 
         const {useCanvas} = this.state;
-        const BarSeries = useCanvas ? VerticalBarSeriesCanvas : VerticalBarSeries;
-        var array = [];
-
         var xValues = [];
         var t1 = [];
         var t2 = [];
@@ -257,13 +230,6 @@ class VisualizationPage extends React.Component {
             mode: 'markers',
             type: 'scatter'
         };
-
-        // var trace7 = {
-        //     x: dates,
-        //     y: polNotInv,
-        //     name: 'Police Not Involved',
-        //     type: 'bar'
-        // };
 
         return (
             <div>

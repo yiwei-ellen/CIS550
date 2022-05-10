@@ -1,22 +1,17 @@
 import React from 'react';
-import { Form, FormInput, FormGroup, Button, Card, CardBody, CardTitle, Progress } from "shards-react";
-import { format } from 'd3-format';
-
+import { Form,  FormGroup, Button, Card, CardBody} from "shards-react";
 import {
     Table,
-    Pagination,
     Row,
     Col,
     Divider,
     Slider,
-    Rate 
 } from 'antd'
-
 import { getHouseholdSearch } from '../fetcher'
-
 
 import MenuBar from '../components/MenuBar';
 
+//cached functions
 const householdColumns = [
     {
         title: 'Year',
@@ -78,7 +73,7 @@ const householdColumns = [
         key: 'Head_hispanic',
         sorter: (a, b) => a.Head_hispanic.localeCompare(b.Head_hispanic)
     },
-    // TASK 19: copy over your answers for tasks 7 - 9 to add columns for potential, club, and value
+    
 ];
 
 
@@ -118,7 +113,7 @@ class HouseholdPage extends React.Component {
     }
 
 
-
+//functions in response to user action
     handleYearQueryChange(value) {
         this.setState({ Year_lowQuery: value[0] })
         this.setState({ Year_highQuery: value[1] })
@@ -163,7 +158,6 @@ class HouseholdPage extends React.Component {
 
 
     updateSearchResults() {
-        //TASK 11: call getyHouseholdSearch and update matchesResults in state. See componentDidMount() for a hint
         getHouseholdSearch(this.state.Year_lowQuery, this.state.Year_highQuery, this.state.Land_use_OGQuery, this.state.Land_use_2015Query,
             this.state.Living_quarter_OGQuery, this.Living_quarter_2016Query, this.state.IncomeQuery,
             this.state.Income_2015Query, this.state.Num_crime_reported_lowQuery, this.state.Num_crime_reported_highQuery,
@@ -173,8 +167,8 @@ class HouseholdPage extends React.Component {
         })
     }
 
+    //initialization
     componentDidMount() {
-
 
         getHouseholdSearch(this.state.Year_lowQuery, this.state.Year_highQuery, this.state.Land_use_OGQuery, this.state.Land_use_2015Query,
             this.state.Living_quarter_OGQuery, this.Living_quarter_2016Query, this.state.IncomeQuery,

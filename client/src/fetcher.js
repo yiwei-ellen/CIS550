@@ -1,22 +1,6 @@
 import config from './config.json'
 
-//TO DO
-/*
-const getAllHouseholds = async (page, pagesize) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/households?page=${page}&pagesize=${pagesize}`, {
-        method: 'GET',
-    })
-    return res.json()
-}
 
-const getAllPersons = async (page, pagesize) => {
-    var res = await fetch(`http://${config.server_host}:${config.server_port}/persons?page=${page}&pagesize=${pagesize}`, {
-        method: 'GET',
-    })
-    return res.json()
-} */
-
-//TO DO
 const getHouseholdSearch = async (Year_low, Year_high, Land_use_OG, Land_use_2015, Living_quarter_OG, Living_quarter_2016,
     Income, Income_2015, Num_crime_reported_low, Num_crime_reported_high, Head_race, Head_hispanic, page, pagesize) => {
     var res = await fetch(`http://${config.server_host}:${config.server_port}/search/Households?Year_low=${Year_low}`+
@@ -106,16 +90,15 @@ const relIncomeHouse = async()=>{
 
 
 export {
-    // getAllHouseholds,
     getHouseholdSearch,
     getPersonsSearch,
     getVisualization1,
     getVisualization2,
+    getVisualization4,
+    getVisualization5,
     relJobVictim,
     relRaceVictim,
     relOldVictim,
-    getVisualization4,
-    getVisualization5,
     relLandHouse,
     relRaceHouse,
     relIncomeHouse

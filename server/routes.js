@@ -17,16 +17,12 @@ connection.connect();
 
 
 // ********************************************
-//               GENERAL ROUTES
+//                  ROUTES
 // ********************************************
 
 
-
-
-// Route 7 (handler)
+// Route 1 
 async function search_households(req, res) {
-    // TODO: TASK 8: implement and test, potentially writing your own (ungraded) tests
-    // IMPORTANT: in your SQL LIKE matching, use the %query% format to match the search query to substrings, not just the entire string
     var Year_low = req.query.Year_low? req.query.Year_low :'';
     var Year_high = req.query.Year_high? req.query.Year_high :'';
     var Land_use_OG = req.query.Land_use_OG? req.query.Land_use_OG :'';
@@ -39,7 +35,6 @@ async function search_households(req, res) {
     var Num_crime_reported_high = req.query.Num_crime_reported_high? req.query.Num_crime_reported_high :'';
     var Head_race = req.query.Head_race? req.query.Head_race :'';
     var Head_hispanic = req.query.Head_hispanic? req.query.Head_hispanic :'';
-    var page = req.query.page;
     var pagesize = req.query.pagesize ? req.query.pagesize:10;
     if (req.query.page && !isNaN(parseInt(req.query.page))) {
         connection.query(`select Hid, Year, Land_use_OG, Land_use_2015,
@@ -92,9 +87,13 @@ async function search_households(req, res) {
     }
 }
 
-// Route 8 (handler)
+
+// ********************************************
+//            Visualization Page
+// ********************************************
+
+//route 2
 async function search_persons(req, res) {
-    // TODO: TASK 9: implement and test, potentially writing your own (ungraded) tests
     // IMPORTANT: in your SQL LIKE matching, use the %query% format to match the search query to substrings, not just the entire string
     var Year_low = req.query.Year_low? req.query.Year_low :'';
     var Year_high = req.query.Year_high? req.query.Year_high :'';
@@ -112,8 +111,6 @@ async function search_persons(req, res) {
     var Num_crime_high = req.query.Num_crime_high? req.query.Num_crime_high :'';
 
     var pagesize = req.query.pagesize ? req.query.pagesize:10;
-
-    // console.log('sb')
     
     if (req.query.page && !isNaN(parseInt(req.query.page))) {
         connection.query(`select Pid, Year, Age, Sex, Race, Hispanic,
@@ -169,9 +166,10 @@ async function search_persons(req, res) {
     }
 }
 
-    // Route 9 (handler)
+
+
+// Route 3 
 async function weaponVisualization(req, res) {
-    // TODO: TASK 9: implement and test, potentially writing your own (ungraded) tests
     // IMPORTANT: in your SQL LIKE matching, use the %query% format to match the search query to substrings, not just the entire string
     console.log("hi")
     
@@ -204,9 +202,8 @@ async function weaponVisualization(req, res) {
     });
 }
 
-// Route 10 (handler)
+// Route 4
 async function monthVisualization(req, res) {
-// TODO: TASK 9: implement and test, potentially writing your own (ungraded) tests
 // IMPORTANT: in your SQL LIKE matching, use the %query% format to match the search query to substrings, not just the entire string
 
 connection.query(`WITH Crime AS (
@@ -281,7 +278,7 @@ ORDER BY c.Month ASC;
     }
 });
 }
-
+//route 5
 async function relJobVictim (req,res){
     console.log("function called");
     connection.query(`select Year, COUNT(CASE WHEN If_job_sixmonth = 'No' THEN 1 END)/count(*) as Proportion
@@ -307,31 +304,7 @@ async function relJobVictim (req,res){
         });
 }
 
-async function relRaceVictim (req,res){
-    console.log("function called");
-    connection.query(`select Year, COUNT(CASE WHEN Hispanic = 'Yes' THEN 1 END)/count(*)as Proportion
-    from Person P
-    where pid in( select Victim_id from Incident)
-    group by P.year;
-        `,function(error, results,fields){
-            if(error){
-                console.log(error)
-                res.json({error:error});
-            } else if (results){
-                console.log("race victim database called, results: ");
-                //console.log(results)
-                if(results.length ==0){
-                    res.json({results:[]});
-                } else {
-                    ans = []
-                    ans=JSON.parse(JSON.stringify(results))
-                    console.log(ans)
-                    res.json({results:ans});
-                }    
-            }
-        });
-}
-
+//route 6
 async function mostCriminalMonth (req,res){
     console.log("function called");
     connection.query(`WITH Crime AS (
@@ -363,31 +336,7 @@ async function mostCriminalMonth (req,res){
             }
         });
 }
-async function relOldVictim (req,res){
-    console.log("function called");
-    connection.query(`select Year, COUNT(CASE WHEN Age>=65 THEN 1 END)/count(*) as Proportion
-    from Person P
-    where pid in( select Victim_id from Incident)
-    group by P.Year
-        `,function(error, results,fields){
-            if(error){
-                console.log(error)
-                res.json({error:error});
-            } else if (results){
-                console.log("old victim database called, results: ");
-                //console.log(results)
-                if(results.length ==0){
-                    res.json({results:[]});
-                } else {
-                    ans = []
-                    ans=JSON.parse(JSON.stringify(results))
-                    console.log(ans)
-                    res.json({results:ans});
-                }    
-            }
-        });
-}
-
+//route 7
 async function polInvolved (req,res){
     connection.query(`WITH Inci AS (
         SELECT Hid, Victim_id, Month, YEAR, police_involve
@@ -428,8 +377,65 @@ async function polInvolved (req,res){
         });
 }
 
+
+// ********************************************
+//            Insights Page
+// ********************************************
+//route 8
+async function relRaceVictim (req,res){
+    //console.log("function called");
+    connection.query(`select Year, COUNT(CASE WHEN Hispanic = 'Yes' THEN 1 END)/count(*)as Proportion
+    from Person P
+    where pid in( select Victim_id from Incident)
+    group by P.year;
+        `,function(error, results,fields){
+            if(error){
+                console.log(error)
+                res.json({error:error});
+            } else if (results){
+                //console.log("race victim database called, results: ");
+                //console.log(results)
+                if(results.length ==0){
+                    res.json({results:[]});
+                } else {
+                    ans = []
+                    ans=JSON.parse(JSON.stringify(results))
+                    console.log(ans)
+                    res.json({results:ans});
+                }    
+            }
+        });
+}
+//route 9
+async function relOldVictim (req,res){
+    //console.log("function called");
+    connection.query(`select Year, COUNT(CASE WHEN Age>=65 THEN 1 END)/count(*) as Proportion
+    from Person P
+    where pid in( select Victim_id from Incident)
+    group by P.Year
+        `,function(error, results,fields){
+            if(error){
+                console.log(error)
+                res.json({error:error});
+            } else if (results){
+                console.log("old victim database called, results: ");
+                //console.log(results)
+                if(results.length ==0){
+                    res.json({results:[]});
+                } else {
+                    ans = []
+                    ans=JSON.parse(JSON.stringify(results))
+                    console.log(ans)
+                    res.json({results:ans});
+                }    
+            }
+        });
+}
+
+
+//route 10
 async function relRaceHouse (req,res){
-    console.log("function called");
+    //console.log("function called");
     connection.query(`with A as (select Head_race,sum(Num_crime_reported) as coun
     from Household
     where hid in (select hid from Incident) and Num_crime_reported >=1
@@ -455,9 +461,9 @@ async function relRaceHouse (req,res){
             }
         });
 }
-
+//route 11
 async function relIncomeHouse (req,res){
-    console.log("function called");
+    //console.log("function called");
     connection.query(`with A as (select Income,sum(Num_crime_reported) as coun
     from Household
     where hid in (select hid from Incident) and Num_crime_reported >=1
@@ -487,7 +493,7 @@ async function relIncomeHouse (req,res){
             }
         });
 }
-
+//route 12
 async function relLandHouse (req,res){
     console.log("function called");
     connection.query(`with A as (select Living_quarter_2016,sum(Num_crime_reported) as coun

@@ -1,21 +1,13 @@
 import React from 'react';
-import { Form, FormInput, FormGroup, Button, Card, CardBody, CardTitle, Progress } from "shards-react";
+import { Form, FormGroup, Button, Card, CardBody, } from "shards-react";
 import {
     Table,
-    Pagination,
-    Select,
     Row,
     Col,
     Divider,
     Slider,
-    Rate 
 } from 'antd'
-import { RadarChart } from 'react-vis';
 import { format } from 'd3-format';
-
-import { FormSelect } from "shards-react";
-
-
 import MenuBar from '../components/MenuBar';
 import { getPersonsSearch } from '../fetcher'
 const wideFormat = format('.3r');
@@ -79,7 +71,6 @@ const personColumns = [
         key: 'Num_crime',
         sorter: (a, b) => a.Num_crime.localeCompare(b.Num_crime)
     },
-    // TASK 19: copy over your answers for tasks 7 - 9 to add columns for potential, club, and value
 ];
 
 
@@ -119,7 +110,7 @@ class PersonsPage extends React.Component {
         this.handleNum_crimeQueryChange = this.handleNum_crimeQueryChange.bind(this)
 
     }
-
+//functions in response to user interaction
     handleYearQueryChange(value) {
         this.setState({ Year_lowQuery: value[0] })
         this.setState({ Year_highQuery: value[1] })
@@ -162,7 +153,6 @@ class PersonsPage extends React.Component {
     handleNum_crimeQueryChange(value) {
         this.setState({ Num_crime_lowQuery: value[0] })
         this.setState({ Num_crime_highQuery: value[1] })
-        // TASK 22: parse value and update state variables appropriately. See handleRatingChange(value) for reference
     }
 
 
@@ -174,10 +164,9 @@ class PersonsPage extends React.Component {
             this.state.Num_crime_highQuery, 1, 10).then(res => {
             this.setState({ personsResults: res.results })
         })
-        //TASK 23: call getPlayerSearch and update playerResults in state. See componentDidMount() for a hint
 
     }
-
+//initialization
     componentDidMount() {
 
         getPersonsSearch(this.state.Year_lowQuery, this.state.Year_highQuery,  this.state.Age_lowQuery, this.state.Age_highQuery, this.state.SexQuery, this.state.RaceQuery, this.state.HispanicQuery, 
@@ -332,7 +321,7 @@ class PersonsPage extends React.Component {
                             <Slider range defaultValue={[0, 10]} max ={10}onChange={this.handleNum_crimeQueryChange} />
 
                         </FormGroup></Col>
-                        {/* TASK 27: Create a column with a label and slider in a FormGroup item for filtering by Potential. See the column above for reference and use the onChange method (handlePotentialChange)  */}
+                        
                         <Col flex={2}><FormGroup style={{ width: '10vw' }}>
                             <Button style={{ marginTop: '4vh' }} onClick={this.updateSearchResults}>Search</Button>
                         </FormGroup></Col>
@@ -342,7 +331,7 @@ class PersonsPage extends React.Component {
 
                 </Form>
                 <Divider />
-                {/* TASK 24: Copy in the players table from the Home page, but use the following style tag: style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }} - this should be one line of code! */
+                {
                 <Table dataSource={this.state.personsResults} columns={personColumns} pagination={{ pageSizeOptions:[5, 10], defaultPageSize: 5, showQuickJumper:true }} style={{ width: '70vw', margin: '0 auto', marginTop: '2vh' }}/>}
 
                 <Divider />
