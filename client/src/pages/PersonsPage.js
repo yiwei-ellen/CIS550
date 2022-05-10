@@ -198,12 +198,12 @@ class PersonsPage extends React.Component {
                 <MenuBar />
                 <Form style={{ width: '80vw', margin: '0 auto', marginTop: '5vh' }}>
                     <Row>
-                        <Col space={8}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
+                        <Col span={8}><FormGroup style={{ width: '20vw',  }}>
 
                             <label>Year</label>
                             <Slider min = {2003} max = {2020} range defaultValue={[2003, 2020]} onChange={this.handleYearQueryChange} />
                         </FormGroup></Col>
-                        <Col span={8}><FormGroup style={{ width: '20vw', margin: '0 auto' }}>
+                        <Col span={8}><FormGroup style={{ width: '20vw',  }}>
                             <label>Age</label>
                             <Slider range defaultValue={[0, 90]} onChange={this.handleAgeQueryChange} />
                         </FormGroup></Col>
@@ -246,9 +246,9 @@ class PersonsPage extends React.Component {
                             </Form>
                         </Col>
                         
-                        <Col span={6}>
+                        <Col span={8}>
                             <label>Hispanic</label>
-                            <Form style={{ width: '20vw', margin: '0 auto' }}>
+                            <Form style={{ width: '20vw' }}>
                                 <select type="primary" defaultValue ="No" value={this.state.HispanicQuery} onChange={this.handleHispanicQueryChange}>
                                     <option value="No">No</option>
                                     <option value="Yes">Yes</option>
@@ -257,9 +257,9 @@ class PersonsPage extends React.Component {
                             </Form>
                         </Col>
                         
-                        <Col span={6}> 
+                        <Col span={8}> 
                         <label>If_job_sixmonth</label>
-                        <Form style={{ width: '20vw', margin: '0 auto' }}>
+                        <Form style={{ width: '20vw'}}>
                             <select type="primary" defaultValue ="No" value={this.state.If_job_sixmonthQuery} onChange={this.handleIf_job_sixmonthQueryChange}>
                                 <option value="No">No</option>
                                 <option value="Yes">Yes</option>
