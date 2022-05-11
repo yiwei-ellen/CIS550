@@ -6,7 +6,7 @@ import {
     Table,
 } from 'antd'
 
-import { getVisualization1,getVisualization2,getVisualization4,relJobVictim  } from '../fetcher'
+import { getVisualization1,getVisualization2,getVisualization4,getVisualization5,relJobVictim  } from '../fetcher'
 
 
 const { Column, ColumnGroup } = Table;
